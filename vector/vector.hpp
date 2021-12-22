@@ -57,11 +57,11 @@ namespace ft
         {
         }
         // COPY constructor
+*/
         vector(const vector &x)
         {
             *this = x;
         }
-        */
         /// ASSIGN operator
         vector &operator=(const vector &x)
         {
@@ -80,6 +80,11 @@ namespace ft
         }
         ~vector()
         {
+            for (size_type i = 0; i < this->_size; i++)
+            {
+                this->_alloc.destroy(&_rawData[i]);
+            }
+            
             this->_alloc.deallocate(this->_rawData, this->_capacity);
         };
 
@@ -126,11 +131,12 @@ namespace ft
                 }
                 for (size_type i = this->_size; i < n; i++)
                 {
-                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
+                    this->_alloc.construct(&ptr[i], val);
                 }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_rawData = ptr;
                 this->_capacity = n;
+                this->_size = n;
             }
         }
 
@@ -227,8 +233,10 @@ namespace ft
 
         void push_back(const value_type &val)
         {
+            
             if (this->_size == this->_capacity)
             {
+                
                 T *ptr = this->_alloc.allocate(this->_capacity * 2);
                 for (size_type i = 0; i < this->_size; i++)
                 {
@@ -244,16 +252,44 @@ namespace ft
 
         void pop_back()
         {
+            this->_alloc.destroy(&_rawData[_size - 1]);
             this->_size--;
         }
     
         //iterator insert(iterator position, const value_type &val);
-        void insert(iterator position, size_type n, const value_type &val)
-        {
-
-        }
+        
+        //void insert(iterator position, size_type n, const value_type &val);
         //template <class InputIterator>
         //void insert(iterator position, InputIterator first, InputIterator last);
+
+        void clear()
+        {
+            for (size_type i = 0; i < this->_size; i++)
+            {
+                this->_alloc.destroy(&_rawData[i]);
+            }
+            this->_size = 0;
+        }
+
+        void swap (vector& x)
+        {
+            T *_rawData = x._rawData;
+            size_type _size = x._size;
+            size_type _capacity = x._capacity;
+
+            x._rawData = this->_rawData;
+            x._size = this->_size;
+            x._capacity = this->_capacity;
+
+            this->_rawData = _rawData;
+            this->_size = _size;
+            this->_capacity = _capacity;
+        }
+
+        allocator_type get_allocator() const
+        {
+            return (this->_alloc);
+        }
     };
 }
 #endif
