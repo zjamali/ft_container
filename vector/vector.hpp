@@ -68,7 +68,7 @@ namespace ft
             if (this != &x)
             {
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
-                this->_capacity = x.capacity;
+                this->_capacity = x._capacity;
                 this->_size = x._size;
                 this->_rawData = _alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_capacity; i++)
@@ -112,7 +112,7 @@ namespace ft
                 T *ptr = this->_alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_size; i++)
                 {
-                    this->_alloc.construct(ptr[i], this->_rawData[i]);
+                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
                 }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_rawData = ptr;
@@ -122,11 +122,11 @@ namespace ft
                 T *ptr = this->_alloc.allocate(n);
                 for (size_type i = 0; i < this->_size; i++)
                 {
-                    this->_alloc.construct(ptr[i], this->_rawData[i]);
+                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
                 }
                 for (size_type i = this->_size; i < n; i++)
                 {
-                    this->_alloc.construct(ptr[i], this->_rawData[i]);
+                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
                 }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_rawData = ptr;
@@ -139,10 +139,9 @@ namespace ft
             if (this->_capacity < n)
             {
                 T *ptr = this->_alloc.allocate(n);
-                this->_capacity;
                 for (size_type i = 0; i < this->_size; i++)
                 {
-                    this->_alloc.construct(ptr[i], this->_rawData[i]);
+                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
                 }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_rawData = ptr;
@@ -188,13 +187,73 @@ namespace ft
 
         reference back()
         {
-
+            return (this->_rawData[_size - 1]);
         }
 
         const_reference back() const
         {
+            return (this->_rawData[_size - 1]);
+        }
+
+    public:
+        /*********  MODIFIERS MEMBERS FUNCTIONS  ********/
+        // template<class InputIterator>
+        // void assign(InputIterator first, InputIterator last);
+
+        void assign(size_type n, const value_type &val)
+        {
+            if (this->_capacity < n)
+            {
+                T *ptr = this->_alloc.allocate(n);
+                for (size_type i = 0; i < this->_size; i++)
+                {
+                    this->_alloc.construct(&ptr[i], val);
+                }
+                this->_alloc.deallocate(this->_rawData, this->_capacity);
+                this->_rawData = ptr;
+                this->_capacity = n;
+                this->_size = n;
+            }
+            else
+            {
+                for (size_type i = 0; i < n; i++)
+                {
+                    this->_alloc.construct(&_rawData[i], val);
+                }
+                this->_capacity = n;
+                this->_size = n;
+            }
+        }
+
+        void push_back(const value_type &val)
+        {
+            if (this->_size == this->_capacity)
+            {
+                T *ptr = this->_alloc.allocate(this->_capacity * 2);
+                for (size_type i = 0; i < this->_size; i++)
+                {
+                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
+                }
+                this->_alloc.deallocate(this->_rawData, this->_capacity);
+                this->_rawData = ptr;
+                this->_capacity = this->_capacity * 2;
+            }
+            this->_rawData[this->_size] = val;
+            this->_size++;
+        }
+
+        void pop_back()
+        {
+            this->_size--;
+        }
+
+        //iterator insert(iterator position, const value_type &val);
+        void insert(iterator position, size_type n, const value_type &val)
+        {
             
         }
+        //template <class InputIterator>
+        //void insert(iterator position, InputIterator first, InputIterator last);
     };
 }
 #endif
