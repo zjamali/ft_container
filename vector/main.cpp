@@ -50,7 +50,7 @@ int main()
     std::cout << "fsjkhasjkfhjkafs" << std::endl;
     std::cout << v.size() << " | " << v.capacity() << std::endl;
     std::cout << vec.size() << " | " << vec.capacity() << std::endl;
-    
+
 */
     /*
         std::vector<int> myvector;
@@ -91,56 +91,69 @@ int main()
             std::cout << ' ' << myvector1[i];
         std::cout << '\n';
     */
+    /*
+        std::vector<int> foo(3, 100); // three ints with a value of 100
+        std::vector<int> bar(5, 200); // five ints with a value of 200
+
+        foo.swap(bar);
+
+        std::cout << "foo contains:";
+        for (unsigned i = 0; i < foo.size(); i++)
+            std::cout << ' ' << foo[i];
+        std::cout << '\n';
+
+        std::cout << "bar contains:";
+        for (unsigned i = 0; i < bar.size(); i++)
+            std::cout << ' ' << bar[i];
+        std::cout << '\n';
+
+        ft::vector<int> foo1(3, 100); // three ints with a value of 100
+        ft::vector<int> bar1(5, 200); // five ints with a value of 200
+
+        foo1.swap(bar1);
+
+        std::cout << "foo1 contains:";
+        for (unsigned i = 0; i < foo1.size(); i++)
+            std::cout << ' ' << foo1[i];
+        std::cout << '\n';
+
+        std::cout << "bar1 contains:";
+        for (unsigned i = 0; i < bar1.size(); i++)
+            std::cout << ' ' << bar1[i];
+        std::cout << '\n';
+        */
 /*
-    std::vector<int> foo(3, 100); // three ints with a value of 100
-    std::vector<int> bar(5, 200); // five ints with a value of 200
+    ft::vector<int> myvector;
+    int *p;
+    unsigned int i;
+    
 
-    foo.swap(bar);
+    // allocate an array with space for 5 elements using vector's allocator:
+    p = myvector.get_allocator().allocate(5);
 
-    std::cout << "foo contains:";
-    for (unsigned i = 0; i < foo.size(); i++)
-        std::cout << ' ' << foo[i];
+    // construct values in-place on the array:
+    for (i = 0; i < 5; i++)
+        myvector.get_allocator().construct(&p[i], i);
+
+    std::cout << "The allocated array contains:";
+    for (i = 0; i < 5; i++)
+        std::cout << ' ' << p[i];
     std::cout << '\n';
 
-    std::cout << "bar contains:";
-    for (unsigned i = 0; i < bar.size(); i++)
-        std::cout << ' ' << bar[i];
-    std::cout << '\n';
+    // destroy and deallocate:
+    for (i = 0; i < 5; i++)
+        myvector.get_allocator().destroy(&p[i]);
+    myvector.get_allocator().deallocate(p, 5);
+*/
 
-    ft::vector<int> foo1(3, 100); // three ints with a value of 100
-    ft::vector<int> bar1(5, 200); // five ints with a value of 200
+    int tab[5] = {1,2,3,4,5}; 
+    std::iterator_traits<int*>::pointer traits;
+    traits = tab;
+    std::iterator_traits<int *>::value_type traitsr;
 
-    foo1.swap(bar1);
-
-    std::cout << "foo1 contains:";
-    for (unsigned i = 0; i < foo1.size(); i++)
-        std::cout << ' ' << foo1[i];
-    std::cout << '\n';
-
-    std::cout << "bar1 contains:";
-    for (unsigned i = 0; i < bar1.size(); i++)
-        std::cout << ' ' << bar1[i];
-    std::cout << '\n';
-    */
-
-
-   ft::vector<int> myvector;
-  int * p;
-  unsigned int i;
-
-  // allocate an array with space for 5 elements using vector's allocator:
-  p = myvector.get_allocator().allocate(5);
-
-  // construct values in-place on the array:
-  for (i=0; i<5; i++) myvector.get_allocator().construct(&p[i],i);
-
-  std::cout << "The allocated array contains:";
-  for (i=0; i<5; i++) std::cout << ' ' << p[i];
-  std::cout << '\n';
-
-  // destroy and deallocate:
-  for (i=0; i<5; i++) myvector.get_allocator().destroy(&p[i]);
-  myvector.get_allocator().deallocate(p,5);
-
+    std::iterator_traits<int *>::reference &ref(tab[2]);
+    std::iterator_traits<int *>::difference_type diff;
+    traits++;
+    std::cout << *traits << " | " << sizeof(traitsr) << " | " << ref << " | " << std::endl;
     return 0;
 }
