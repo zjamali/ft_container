@@ -10,7 +10,7 @@ namespace ft
               class Pointer = T *, class Reference = T &>
     class Iterator
     {
-        public:
+    public:
         typedef T value_type;
         typedef Distance difference_type;
         typedef Pointer pointer;
@@ -20,7 +20,7 @@ namespace ft
     template <class Iterator>
     class iterator_traits
     {
-        public:
+    public:
         typedef typename Iterator::difference_type difference_type;
         typedef typename Iterator::value_type value_type;
         typedef typename Iterator::pointer pointer;
@@ -30,7 +30,7 @@ namespace ft
     template <class T>
     class iterator_traits<T *>
     {
-        public:
+    public:
         typedef ptrdiff_t difference_type;
         typedef T value_type;
         typedef T *pointer;
@@ -40,7 +40,7 @@ namespace ft
     template <class T>
     class iterator_traits<const T *>
     {
-        public:
+    public:
         typedef ptrdiff_t difference_type;
         typedef T value_type;
         typedef const T *pointer;
@@ -50,19 +50,23 @@ namespace ft
     template <typename T>
     class vect_iter : public Iterator<std::random_access_iterator_tag, T>
     {
-        public:
+    public:
         typedef Iterator<std::random_access_iterator_tag, T>::value_type value_type;
         typedef Iterator<std::random_access_iterator_tag, T>::difference_type difference_type;
         typedef Iterator<std::random_access_iterator_tag, T>::pointer pointer;
         typedef Iterator<std::random_access_iterator_tag, T>::reference reference;
         typedef Iterator<std::random_access_iterator_tag, T>::iterator_category iterator_category;
-        
-        private:
-            pointer ptr;
-        public:
-            
-        
-    };  
+
+    private:
+        pointer ptr;
+
+    public:
+        vect_iter(){
+            ptr = NULL;
+        };
+        vect_iter(vect_iter iter) {};
+        vect_iter(const vect_iter &iter) {};
+    };
 
     template <class T, class Alloc = std::allocator<T> >
     class vector
