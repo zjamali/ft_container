@@ -95,10 +95,12 @@ namespace ft
         explicit vector(const allocator_type &alloc = allocator_type())
             : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL)
         {
+            /*
             this->_alloc = alloc;
             this->_capacity = 0;
             this->_size = 0;
             this->_rawData = NULL;
+            */
         }
         explicit vector(size_type n, const value_type &val = value_type(),
                         const allocator_type &alloc = allocator_type())
