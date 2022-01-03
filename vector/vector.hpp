@@ -3,7 +3,8 @@
 #include <memory>
 #include "iterator.hpp"
 
-namespace ft {
+namespace ft
+{
 
     template <class T, class Alloc = std::allocator<T> >
     class vector
@@ -18,11 +19,10 @@ namespace ft {
         typedef int difference_type;
         typedef size_t size_type;
 
-        //typedef ft::iterator<T> iterator;
-        //typedef ft::const_iterator<T> const_iterator;
-        typedef ft::reverse_iterator<T> reverse_iterator;
-        //typedef ft::reverse_iterator<const T> const_reverse_iterator;
-        
+        typedef ft::vec_iterator<T *> iterator;
+        typedef ft::vec_iterator<const T> const_iterator;
+        typedef ft::reverse_iterator<iterator> reverse_iterator;
+        typedef ft::reverse_iterator<const iterator> const_reverse_iterator;
 
     private:
         allocator_type _alloc;
@@ -107,7 +107,6 @@ namespace ft {
         {
             return (this->_size == 0);
         }
-
         size_type max_size() const
         {
             return (this->_alloc.max_size());
@@ -292,6 +291,47 @@ namespace ft {
         allocator_type get_allocator() const
         {
             return (this->_alloc);
+        }
+
+    public:
+        ////Iterators:
+        iterator begin()
+        {
+            return iterator(this->_rawData);
+        }
+
+        const_iterator begin() const
+        {
+            return iterator(this->_rawData);
+        }
+
+        iterator end()
+        {
+            return iterator(this->_rawData + this->_size);
+        }
+        const_iterator end() const
+        {
+            return iterator(this->_rawData + this->_size);
+        }
+
+        reverse_iterator rbegin()
+        {
+            return reverse_iterator(iterator(this->_rawData + this->_size));
+        }
+
+        const_reverse_iterator rbegin() const
+        {
+            return reverse_iterator(this->end() - 1);
+        }
+
+        reverse_iterator rend()
+        {
+            return reverse_iterator(this->begin());
+        }
+
+        const_reverse_iterator rend() const
+        {
+            return reverse_iterator(this->begin());
         }
     };
 }

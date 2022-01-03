@@ -159,19 +159,58 @@ int main()
         return 0;
         */
 
+    /*
+            std::vector<int> myvector;
+            for (int i = 0; i < 10; i++)
+                myvector.push_back(i); // myvector: 0 1 2 3 4 5 6 7 8 9
 
-        std::vector<int> myvector;
-        for (int i = 0; i < 10; i++)
-            myvector.push_back(i); // myvector: 0 1 2 3 4 5 6 7 8 9
+            typedef std::vector<int>::iterator iter_type;
 
-        typedef std::vector<int>::iterator iter_type;
+            std::reverse_iterator<iter_type> rev_iterator = myvector.rend() - 3;
 
-        std::reverse_iterator<iter_type> rev_iterator = myvector.rend() - 3;
+            std::cout << "myvector.rend() points to: " << *rev_iterator << '\n';
+            rev_iterator = myvector.rend() - 3;
 
-        std::cout << "myvector.rend() points to: " << *rev_iterator << '\n';
-        rev_iterator = myvector.rend() - 3;
+            std::cout << "myvector.rend()-3 points to: " << *rev_iterator << '\n';
+    */
 
-        std::cout << "myvector.rend()-3 points to: " << *rev_iterator << '\n';
+    ft::vector<int> v(50);
 
-        return 0;
+    // v.push_back(5);
+    // v.push_back(15);
+    // v.push_back(12);
+    // v.push_back(6);
+    // v.push_back(86);
+
+    // v.resize(50);
+    // std::cout << "capacity : " << v.capacity() << " " << v.size() << std::endl;
+    // v.reserve(10);
+    // v.reserve(30);
+
+    for (size_t i = 0; i < 50; i++)
+    {
+        v[i] = i;
+    }
+    std::cout << "size" << v.size() << std::endl;
+    ft::vector<int>::reverse_iterator rit = v.rbegin();
+    ft::vector<int>::reverse_iterator ritr = v.rend();
+    ft::vector<int>::iterator it = v.begin();
+    ft::vector<int>::iterator itr = v.end();
+    // it++;
+    //  it;
+    //  ft::vector<int>::iterator ite = v.end();
+
+    for (; it != itr; it++)
+    {
+        std::cout << *it << " , ";
+    }
+
+    std::cout << "han yana" << std::endl;
+
+    for (; rit != ritr; rit++)
+    {
+        std::cout << *rit << " , ";
+    }
+
+    return 0;
 }
