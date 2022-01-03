@@ -122,38 +122,56 @@ int main()
             std::cout << ' ' << bar1[i];
         std::cout << '\n';
         */
-/*
-    ft::vector<int> myvector;
-    int *p;
-    unsigned int i;
-    
+    /*
+        ft::vector<int> myvector;
+        int *p;
+        unsigned int i;
 
-    // allocate an array with space for 5 elements using vector's allocator:
-    p = myvector.get_allocator().allocate(5);
 
-    // construct values in-place on the array:
-    for (i = 0; i < 5; i++)
-        myvector.get_allocator().construct(&p[i], i);
+        // allocate an array with space for 5 elements using vector's allocator:
+        p = myvector.get_allocator().allocate(5);
 
-    std::cout << "The allocated array contains:";
-    for (i = 0; i < 5; i++)
-        std::cout << ' ' << p[i];
-    std::cout << '\n';
+        // construct values in-place on the array:
+        for (i = 0; i < 5; i++)
+            myvector.get_allocator().construct(&p[i], i);
 
-    // destroy and deallocate:
-    for (i = 0; i < 5; i++)
-        myvector.get_allocator().destroy(&p[i]);
-    myvector.get_allocator().deallocate(p, 5);
-*/
+        std::cout << "The allocated array contains:";
+        for (i = 0; i < 5; i++)
+            std::cout << ' ' << p[i];
+        std::cout << '\n';
 
-    int tab[5] = {1,2,3,4,5}; 
-    std::iterator_traits<int*>::pointer traits;
-    traits = tab;
-    std::iterator_traits<int *>::value_type traitsr;
+        // destroy and deallocate:
+        for (i = 0; i < 5; i++)
+            myvector.get_allocator().destroy(&p[i]);
+        myvector.get_allocator().deallocate(p, 5);
+    */
+    /*
+        int tab[5] = {1,2,3,4,5};
+        std::iterator_traits<int*>::pointer traits;
+        traits = tab;
+        std::iterator_traits<int *>::value_type traitsr;
 
-    std::iterator_traits<int *>::reference &ref(tab[2]);
-    std::iterator_traits<int *>::difference_type diff;
-    traits++;
-    std::cout << *traits << " | " << sizeof(traitsr) << " | " << ref << " | " << std::endl;
-    return 0;
+        std::iterator_traits<int *>::reference &ref(tab[2]);
+        std::iterator_traits<int *>::difference_type diff;
+        traits++;
+        std::cout << *traits << " | " << sizeof(traitsr) << " | " << ref << " | " << std::endl;
+
+        return 0;
+        */
+
+
+        std::vector<int> myvector;
+        for (int i = 0; i < 10; i++)
+            myvector.push_back(i); // myvector: 0 1 2 3 4 5 6 7 8 9
+
+        typedef std::vector<int>::iterator iter_type;
+
+        std::reverse_iterator<iter_type> rev_iterator = myvector.rend() - 3;
+
+        std::cout << "myvector.rend() points to: " << *rev_iterator << '\n';
+        rev_iterator = myvector.rend() - 3;
+
+        std::cout << "myvector.rend()-3 points to: " << *rev_iterator << '\n';
+
+        return 0;
 }

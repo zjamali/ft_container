@@ -1,72 +1,9 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 #include <memory>
-#include <cstddef>
-#include <exception>
+#include "iterator.hpp"
 
-namespace ft
-{
-    template <class Category, class T, class Distance = ptrdiff_t,
-              class Pointer = T *, class Reference = T &>
-    class Iterator
-    {
-    public:
-        typedef T value_type;
-        typedef Distance difference_type;
-        typedef Pointer pointer;
-        typedef Reference reference;
-        typedef Category iterator_category;
-    };
-    template <class Iterator>
-    class iterator_traits
-    {
-    public:
-        typedef typename Iterator::difference_type difference_type;
-        typedef typename Iterator::value_type value_type;
-        typedef typename Iterator::pointer pointer;
-        typedef typename Iterator::reference reference;
-        typedef typename Iterator::iterator_category iterator_category;
-    };
-    template <class T>
-    class iterator_traits<T *>
-    {
-    public:
-        typedef ptrdiff_t difference_type;
-        typedef T value_type;
-        typedef T *pointer;
-        typedef T &reference;
-        typedef std::random_access_iterator_tag iterator_category;
-    };
-    template <class T>
-    class iterator_traits<const T *>
-    {
-    public:
-        typedef ptrdiff_t difference_type;
-        typedef T value_type;
-        typedef const T *pointer;
-        typedef const T &reference;
-        typedef std::random_access_iterator_tag iterator_category;
-    };
-    template <typename T>
-    class vect_iter : public Iterator<std::random_access_iterator_tag, T>
-    {
-    public:
-        typedef Iterator<std::random_access_iterator_tag, T>::value_type value_type;
-        typedef Iterator<std::random_access_iterator_tag, T>::difference_type difference_type;
-        typedef Iterator<std::random_access_iterator_tag, T>::pointer pointer;
-        typedef Iterator<std::random_access_iterator_tag, T>::reference reference;
-        typedef Iterator<std::random_access_iterator_tag, T>::iterator_category iterator_category;
-
-    private:
-        pointer ptr;
-
-    public:
-        vect_iter(){
-            ptr = NULL;
-        };
-        vect_iter(vect_iter iter) {};
-        vect_iter(const vect_iter &iter) {};
-    };
+namespace ft {
 
     template <class T, class Alloc = std::allocator<T> >
     class vector
@@ -78,12 +15,14 @@ namespace ft
         typedef T &const_reference;
         typedef T *pointer;
         typedef T *const_pointer;
-        // iterator
-        // const_iterator
-        // reverse_iterator
-        // const_reverse_iterator
         typedef int difference_type;
         typedef size_t size_type;
+
+        //typedef ft::iterator<T> iterator;
+        //typedef ft::const_iterator<T> const_iterator;
+        typedef ft::reverse_iterator<T> reverse_iterator;
+        //typedef ft::reverse_iterator<const T> const_reverse_iterator;
+        
 
     private:
         allocator_type _alloc;
