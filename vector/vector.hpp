@@ -2,6 +2,7 @@
 #define VECTOR_HPP
 #include <memory>
 #include "iterator.hpp"
+#include <iostream>
 
 namespace ft
 {
@@ -32,15 +33,7 @@ namespace ft
 
     public:
         explicit vector(const allocator_type &alloc = allocator_type())
-            : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL)
-        {
-            /*
-            this->_alloc = alloc;
-            this->_capacity = 0;
-            this->_size = 0;
-            this->_rawData = NULL;
-            */
-        }
+            : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL) {}
         explicit vector(size_type n, const value_type &val = value_type(),
                         const allocator_type &alloc = allocator_type())
             : _alloc(alloc), _capacity(n), _size(n)
@@ -53,14 +46,23 @@ namespace ft
                 _alloc.construct(&_rawData[i], val);
             }
         }
-        /*
+
         template <class InputIterator>
         vector(InputIterator first, InputIterator last,
                const allocator_type &alloc = allocator_type())
+            : _alloc(alloc), _capacity(last - first), _size(_capacity)
         {
+            // allocate memory
+            this->_rawData = _alloc.allocate(this->_capacity);
+            // initialize _rawData
+            for (size_type i = 0; i < this->_size; i++)
+            {
+                _alloc.construct(&_rawData[i], *first);
+                first++;
+            }
         }
+
         // COPY constructor
-*/
         vector(const vector &x)
         {
             *this = x;
@@ -235,21 +237,28 @@ namespace ft
 
         void push_back(const value_type &val)
         {
-
             if (this->_size == this->_capacity)
             {
-
-                T *ptr = this->_alloc.allocate(this->_capacity * 2);
+                std::cout << "  - > capcity " << this->_capacity << " - > size " << this->_size << std::endl;
+                if (this->_capacity == 0)
+                    this->_capacity = 2;
+                else
+                    this->_capacity = this->_capacity * 2;
+                T *ptr = this->_alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_size; i++)
                 {
                     this->_alloc.construct(&ptr[i], this->_rawData[i]);
                 }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_rawData = ptr;
-                this->_capacity = this->_capacity * 2;
+                this->_rawData[this->_size] = val;
+                this->_size++;
             }
-            this->_rawData[this->_size] = val;
-            this->_size++;
+            else
+            {
+                this->_rawData[this->_size] = val;
+                this->_size++;
+            }
         }
 
         void pop_back()
