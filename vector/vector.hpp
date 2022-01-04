@@ -19,7 +19,6 @@ namespace ft
         typedef T *const_pointer;
         typedef int difference_type;
         typedef size_t size_type;
-
         typedef ft::vec_iterator<pointer> iterator;
         typedef ft::vec_iterator<const pointer> const_iterator;
         typedef ft::reverse_iterator<iterator> reverse_iterator;
@@ -264,7 +263,7 @@ namespace ft
 
         template <class InputIterator>
         void insert(iterator position, InputIterator first, InputIterator last,
-        typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = nullptr)
+                    typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = nullptr)
         {
             difference_type firstPosIndex = position - this->begin();
             difference_type lastPosIndex = firstPosIndex + last - first - 1;
@@ -290,6 +289,30 @@ namespace ft
             std::swap(this->_size, x._size);
             std::swap(this->_capacity, x._capacity);
             std::swap(this->_alloc, x._alloc);
+        }
+
+        iterator erase(iterator position)
+        {
+            difference_type index = position - this->begin();
+
+            this->_alloc.destroy(&_rawData[index]);
+            for (difference_type i = index; i < this->_size - 1; i++)
+            {
+                this->_rawData[i] = this->_rawData[i + 1];
+            }
+            this->_size--;
+            return (this->begin() + index);
+        }
+        iterator erase(iterator first, iterator last)
+        {
+            difference_type firstPosIndex = first - this->begin();
+            difference_type lastPosIndex = firstPosIndex + last - first - 1;
+
+            for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
+            {
+                this->erase(this->begin() + firstPosIndex);
+            }
+            return (this->begin());
         }
 
         allocator_type get_allocator() const
@@ -320,7 +343,7 @@ namespace ft
 
         reverse_iterator rbegin()
         {
-            return reverse_iterator(iterator(this->_rawData + this->_size));
+            return reverse_iterator(this->end() - 1);
         }
 
         const_reverse_iterator rbegin() const

@@ -88,7 +88,6 @@ namespace ft
         vec_iterator &operator++()
         {
             this->ptr++;
-            
             return (*this);
         }
 
@@ -193,7 +192,7 @@ namespace ft
     {
         return (lhs.base() - rhs.base());
     }
-
+/////// 
     template <class T>
     class reverse_iterator : public iterator<std::random_access_iterator_tag, T>
     {

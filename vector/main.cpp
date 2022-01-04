@@ -4,291 +4,43 @@
 
 int main()
 {
-    /*
-    ft::vector<int> v(50);
-    std::vector<int> vec(50);
-    std::cout << v.size() << std::endl;
-    std::cout << vec.size() << std::endl;
-    std::srand(time(NULL));
-    for (size_t i = 0; i < 20; i++)
-    {
-        int n = rand() % 50;
-        vec[i] = n;
-        v[i] = n;
-    }
+    std::vector<int> myvector;
 
-    ft::vector<int> copy;
-    copy = v;
-    std::cout << "my max " << copy.max_size() << "    |    " << vec.max_size() << std::endl;
-    for (size_t i = 0; i < 20; i++)
-    {
-        std::cout << " my " << copy[i] << " | " << vec[i] << std::endl;
-    }
-    std::cout << "front " << v.front() << " | " << vec.front() << std::endl;
-    std::cout << "back " << v.back() << " | " << vec.back() << std::endl;
+    // set some values (from 1 to 10)
+    for (int i = 1; i <= 10; i++)
+        myvector.push_back(i);
+    std::cout << "capacity " << myvector.capacity() << std::endl;
 
-    vec.assign(5,8);
-    vec.reserve(100);
-    vec.push_back(8000000);
-    vec.push_back(200000);
-
-    v.assign(5,8);
-    v.reserve(100);
-    v.push_back(8000000);
-    v.push_back(200000);
-
-    v.pop_back();
-    vec.pop_back();
-
-    v.push_back(80);
-    vec.push_back(80);
-    for (size_t i = 0; i < 100; i++)
-    {
-        std::cout << "my " << v[i] << "   |  " << vec[i] << std::endl;
-    }
-
-    std::cout << "fsjkhasjkfhjkafs" << std::endl;
-    std::cout << v.size() << " | " << v.capacity() << std::endl;
-    std::cout << vec.size() << " | " << vec.capacity() << std::endl;
-
-*/
-    /*
-        std::vector<int> myvector;
-        myvector.push_back(100);
-        myvector.push_back(200);
-        myvector.push_back(300);
-
-        std::cout << "myvector contains:";
-        for (unsigned i = 0; i < myvector.size(); i++)
-            std::cout << ' ' << myvector[i];
-        std::cout << '\n';
-
-        myvector.clear();
-        myvector.push_back(1101);
-        myvector.push_back(2202);
-
-        std::cout << "myvector contains:";
-        for (unsigned i = 0; i < myvector.size(); i++)
-            std::cout << ' ' << myvector[i];
-        std::cout << '\n';
-
-            ft::vector<int> myvector1;
-        myvector1.push_back(100);
-        myvector1.push_back(200);
-        myvector1.push_back(300);
-
-        std::cout << "myvector1 contains:";
-        for (unsigned i = 0; i < myvector1.size(); i++)
-            std::cout << ' ' << myvector1[i];
-        std::cout << '\n';
-
-        myvector1.clear();
-        myvector1.push_back(1101);
-        myvector1.push_back(2202);
-
-        std::cout << "myvector1 contains:";
-        for (unsigned i = 0; i < myvector1.size(); i++)
-            std::cout << ' ' << myvector1[i];
-        std::cout << '\n';
-    */
-    /*
-        std::vector<int> foo(3, 100); // three ints with a value of 100
-        std::vector<int> bar(5, 200); // five ints with a value of 200
-
-        foo.swap(bar);
-
-        std::cout << "foo contains:";
-        for (unsigned i = 0; i < foo.size(); i++)
-            std::cout << ' ' << foo[i];
-        std::cout << '\n';
-
-        std::cout << "bar contains:";
-        for (unsigned i = 0; i < bar.size(); i++)
-            std::cout << ' ' << bar[i];
-        std::cout << '\n';
-
-        ft::vector<int> foo1(3, 100); // three ints with a value of 100
-        ft::vector<int> bar1(5, 200); // five ints with a value of 200
-
-        foo1.swap(bar1);
-
-        std::cout << "foo1 contains:";
-        for (unsigned i = 0; i < foo1.size(); i++)
-            std::cout << ' ' << foo1[i];
-        std::cout << '\n';
-
-        std::cout << "bar1 contains:";
-        for (unsigned i = 0; i < bar1.size(); i++)
-            std::cout << ' ' << bar1[i];
-        std::cout << '\n';
-        */
-    /*
-        ft::vector<int> myvector;
-        int *p;
-        unsigned int i;
-
-
-        // allocate an array with space for 5 elements using vector's allocator:
-        p = myvector.get_allocator().allocate(5);
-
-        // construct values in-place on the array:
-        for (i = 0; i < 5; i++)
-            myvector.get_allocator().construct(&p[i], i);
-
-        std::cout << "The allocated array contains:";
-        for (i = 0; i < 5; i++)
-            std::cout << ' ' << p[i];
-        std::cout << '\n';
-
-        // destroy and deallocate:
-        for (i = 0; i < 5; i++)
-            myvector.get_allocator().destroy(&p[i]);
-        myvector.get_allocator().deallocate(p, 5);
-    */
-    /*
-        int tab[5] = {1,2,3,4,5};
-        std::iterator_traits<int*>::pointer traits;
-        traits = tab;
-        std::iterator_traits<int *>::value_type traitsr;
-
-        std::iterator_traits<int *>::reference &ref(tab[2]);
-        std::iterator_traits<int *>::difference_type diff;
-        traits++;
-        std::cout << *traits << " | " << sizeof(traitsr) << " | " << ref << " | " << std::endl;
-
-        return 0;
-        */
-
-    /*
-            std::vector<int> myvector;
-            for (int i = 0; i < 10; i++)
-                myvector.push_back(i); // myvector: 0 1 2 3 4 5 6 7 8 9
-
-            typedef std::vector<int>::iterator iter_type;
-
-            std::reverse_iterator<iter_type> rev_iterator = myvector.rend() - 3;
-
-            std::cout << "myvector.rend() points to: " << *rev_iterator << '\n';
-            rev_iterator = myvector.rend() - 3;
-
-            std::cout << "myvector.rend()-3 points to: " << *rev_iterator << '\n';
-    */
-
-    // v.push_back(5);
-    // v.push_back(15);
-    // v.push_back(12);
-    // v.push_back(6);
-    // v.push_back(86);
-
-    // v.resize(50);
-    // std::cout << "capacity : " << v.capacity() << " " << v.size() << std::endl;
-    // v.reserve(10);
-    // v.reserve(30);
-    /*
-        ft::vector<int> v(5);
-       std::vector<int> std_v(5);
-        //std::vector<int> std_v;
-        //for (size_t i = 0; i < 5; i++)
-        //{
-        //     v[i] = i;
-        //     std_v[i] = i;
-        //}
-       v.push_back(6);
-       v.push_back(15);
-       v.push_back(12);
-       v.push_back(6);
-       v.push_back(86);
-       v.push_back(6);
-       v.push_back(15);
-       v.push_back(12);
-       v.push_back(6);
-       v.push_back(86);
-        v.push_back(100);
-
-        std_v.push_back(5);
-        std_v.push_back(15);
-        std_v.push_back(12);
-        std_v.push_back(6);
-        std_v.push_back(86);
-        std_v.push_back(5);
-        std_v.push_back(15);
-        std_v.push_back(12);
-        std_v.push_back(6);
-        std_v.push_back(86);
-         std_v.push_back(100);
-       // std::cout << "size " << std_v.size() << " capacity " << std_v.capacity() << std::endl;
-       // std::cout << "my size " << v.size() << " capacity " << v.capacity() << std::endl;
-       // std_v.push_back(100);
-
-
-        ft::vector<int>::reverse_iterator rit = v.rbegin();
-        ft::vector<int>::reverse_iterator ritr = v.rend();
-        ft::vector<int>::iterator it = v.begin();
-        ft::vector<int>::iterator itr = v.end();
-        ft::vector<int> vec(it, itr);
-
-        ft::vector<int>::iterator v_it = v.begin();
-        ft::vector<int>::iterator v_itr = v.end();
-        // it++;
-        //  it;
-        //  ft::vector<int>::iterator ite = v.end();
-
-        for (; v_it != v_itr; v_it++)
-        {
-            std::cout << *v_it << " , ";
-        }
-
-        std::cout << std::endl;
-
-        for (; rit != ritr; rit++)
-        {
-            std::cout << *rit << " , ";
-        }
-    */
-
-    std::vector<int> myvector(3, 100);
-    std::vector<int>::iterator it;
-
-    it = myvector.begin();
-    it = myvector.insert(it, 200);
-
-    myvector.insert(it, 2, 300);
-
-    // "it" no longer valid, get a new one:
-    it = myvector.begin();
-
-    std::vector<int> anothervector(2, 400);
-    myvector.insert(it + 2, anothervector.begin(), anothervector.end());
-
-    int myarray[] = {501, 502, 503};
-    myvector.insert(myvector.begin(), myarray, myarray + 3);
+    std::vector<int>::iterator it = myvector.begin();
+    // erase the 6th element
+    //it = myvector.erase(it + 5);
+    //std::cout << " it " << *it << std::endl; 
+    // erase the first 3 elements:
+    myvector.erase(myvector.begin(), myvector.begin() + 3);
 
     std::cout << "myvector contains:";
-    for (it = myvector.begin(); it < myvector.end(); it++)
-        std::cout << ' ' << *it;
+    for (unsigned i = 0; i < myvector.size(); ++i)
+        std::cout << ' ' << myvector[i];
     std::cout << '\n';
+
     {
+        ft::vector<int> myvector;
 
-        ft::vector<int> myvector(3, 100);
-        ft::vector<int>::iterator it;
+        // set some values (from 1 to 10)
+        for (int i = 1; i <= 10; i++)
+            myvector.push_back(i);
+        std::cout << "capacity " << myvector.capacity() << std::endl;
 
-        it = myvector.begin();
-        it = myvector.insert(it, 200);
-
-        myvector.insert(it, 2, 300);
-
-        // "it" no longer valid, get a new one:
-        it = myvector.begin();
-
-        ft::vector<int> anothervector(2, 400);
-        myvector.insert(it + 2, anothervector.begin(), anothervector.end());
-
-        int myarray[] = {501, 502, 503};
-        myvector.insert(myvector.begin(), myarray, myarray + 3);
+        ft::vector<int>::iterator it = myvector.begin();
+        // erase the 6th element
+        //it = myvector.erase(it + 5);
+        //std::cout << " it " << *it << std::endl; 
+        // erase the first 3 elements:
+        myvector.erase(myvector.begin(), myvector.begin() + 3);
 
         std::cout << "myvector contains:";
-        for (it = myvector.begin(); it < myvector.end(); it++)
-            std::cout << ' ' << *it;
+        for (unsigned i = 0; i < myvector.size(); ++i)
+            std::cout << ' ' << myvector[i];
         std::cout << '\n';
     }
     return 0;
