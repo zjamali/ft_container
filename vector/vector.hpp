@@ -36,15 +36,16 @@ namespace ft
             : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL) {}
         explicit vector(size_type n, const value_type &val = value_type(),
                         const allocator_type &alloc = allocator_type())
-            : _alloc(alloc), _capacity(n), _size(n)
+            : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL)
         {
             this->assign(n, val);
         }
 
         template <class InputIterator>
         vector(InputIterator first, InputIterator last,
-               const allocator_type &alloc = allocator_type())
-            : _alloc(alloc), _capacity(last - first), _size(_capacity)
+               const allocator_type &alloc = allocator_type(),
+               typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = nullptr)
+            : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL)
         {
             this->assign(first, last);
         }
@@ -126,13 +127,13 @@ namespace ft
                 if (this->_capacity * 2 >= n)
                     this->_capacity *= 2;
                 else
-                    this->_capacity = n; 
+                    this->_capacity = n;
                 pointer ptr = this->_alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_size; i++)
                 {
                     this->_alloc.construct(ptr + i, this->_rawData[i]);
                 }
-                for(size_type i = 0; i < this->_size; i++)
+                for (size_type i = 0; i < this->_size; i++)
                 {
                     _alloc.destroy(&this->_rawData[i]);
                 }
@@ -189,6 +190,19 @@ namespace ft
 
     public:
         /*********  MODIFIERS MEMBERS FUNCTIONS  ********/
+        void assign(size_type n, const value_type &val)
+        {
+            if (n <= 0)
+                return;
+            this->reserve(n);
+            this->_size = n;
+            size_type i = 0;
+            while (i < this->_size)
+            {
+                _alloc.construct(&(this->_rawData[i]), val);
+                i++;
+            }
+        }
         template <class InputIterator>
         void assign(InputIterator first, InputIterator last)
         {
@@ -206,20 +220,6 @@ namespace ft
             }
         }
 
-        void assign(size_type n, const value_type &val)
-        {
-            if (n <= 0)
-                return ;
-            this->reserve(n);
-            this->_size = n;
-            size_type i = 0;
-            while (i < this->_size)
-            {
-                _alloc.construct(&(this->_rawData[i]), val);
-                i++;
-            }
-        }
-
         void push_back(const value_type &val)
         {
             this->reserve(this->_size + 1);
@@ -232,12 +232,41 @@ namespace ft
             this->_size--;
         }
 
-        // iterator insert(iterator position, const value_type &val);
+        iterator insert(iterator position, const value_type &val)
+        {
+            difference_type positionIndex = position - this->begin();
+            size_type newSize;
 
-        // void insert(iterator position, size_type n, const value_type &val);
-        // template <class InputIterator>
-        // void insert(iterator position, InputIterator first, InputIterator last);
+            if (positionIndex > this->_size + 1)
+                newSize = this->_size + (positionIndex - this->_size + 1);
+            else
+                newSize = this->_size + 1;
+            this->reserve(newSize);
+            this->_size = newSize;
+            for (size_type i = this->_size - 1; i > positionIndex; i--)
+            {
+                this->_rawData[i] = this->_rawData[i - 1];
+            }
+            this->_rawData[positionIndex] = val;
+            return (this->begin() + positionIndex);
+        }
 
+        void insert(iterator position, size_type n, const value_type &val)
+        {
+            difference_type firstPosIndex = position - this->begin();
+            difference_type lastPosIndex = firstPosIndex + n - 1;
+
+            for (size_type i = firstPosIndex ; i <= lastPosIndex; i++)
+            {
+                this->insert(this->begin() + i, val);
+            }
+        }
+        /*
+        template <class InputIterator>
+        void insert(iterator position, InputIterator first, InputIterator last)
+        {
+        }
+        */
         void clear()
         {
             for (size_type i = 0; i < this->_size; i++)

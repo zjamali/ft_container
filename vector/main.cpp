@@ -246,44 +246,43 @@ int main()
         }
     */
 
-        std::vector<int> v1;
-        int a[] = {1, 2, 3};
+    std::vector<int> myvector(3, 100);
+    std::vector<int>::iterator it;
 
-        // assign first 2 values
-        v1.assign(a + 1, a + 3);
-
-        std::cout << "Elements of vector1 are\n";
-        for (int i = 0; i < v1.size(); i++)
-            std::cout << v1[i] << " ";
-
-        std::vector<int> v2(5, 7);
-        // assign first 3 values
-        v2.assign(a, a + 3);
-
-        std::cout << "\nElements of vector2 are\n";
-        for (int i = 0; i < v2.size(); i++)
-            std::cout << v2[i] << " ";
-        std::cout << "\n";
-    
+    it = myvector.begin();
+    it = myvector.insert(it + 2, 200);
+    myvector.insert(it, 13, 300);
+    std::cout << "vector size " << myvector.size() << std::endl;
+    for (it = myvector.begin(); it < myvector.end(); it++)
+        std::cout << ' ' << *it;
+    std::cout << std::endl;
     {
-        ft::vector<int> v1;
-        int a[] = {1, 2, 3};
+        ft::vector<int> myvector(3, 100);
+        ft::vector<int>::iterator it;
 
-        // assign first 2 values
-        v1.assign(a + 1, a + 3);
-
-        std::cout << "Elements of vector1 are\n";
-        for (int i = 0; i < v1.size(); i++)
-            std::cout << v1[i] << " ";
-
-        ft::vector<int> v2;
-        // assign first 3 values
-        v2.assign(a, a + 3);
-
-        std::cout << "\nElements of vector2 are\n";
-        for (int i = 0; i < v2.size(); i++)
-            std::cout << v2[i] << " ";
+        it = myvector.begin();
+        it = myvector.insert(it + 2, 200);
+        myvector.insert(it, 13, 300);
+        std::cout << "vector size " << myvector.size() << std::endl;
+        for (it = myvector.begin(); it < myvector.end(); it++)
+            std::cout << ' ' << *it;
+        std::cout << std::endl;
     }
+    /*
 
+        // "it" no longer valid, get a new one:
+        it = myvector.begin();
+
+        std::vector<int> anothervector(2, 400);
+        myvector.insert(it + 2, anothervector.begin(), anothervector.end());
+
+        int myarray[] = {501, 502, 503};
+        myvector.insert(myvector.begin(), myarray, myarray + 3);
+
+        std::cout << "myvector contains:";
+        for (it = myvector.begin(); it < myvector.end(); it++)
+            std::cout << ' ' << *it;
+        std::cout << '\n';
+    */
     return 0;
 }

@@ -64,7 +64,8 @@ namespace ft
     public:
         vec_iterator() : ptr(NULL){};
         explicit vec_iterator(pointer ptr) : ptr(ptr){};
-        vec_iterator(const vec_iterator &iter) : ptr(iter.base()){};
+        template <class Iter>
+        vec_iterator(const vec_iterator<Iter> &iter) : ptr(iter.base()){};
         ~vec_iterator(){};
 
     public:
