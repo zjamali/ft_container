@@ -203,7 +203,7 @@ int main()
    v.push_back(12);
    v.push_back(6);
    v.push_back(86);
- v.push_back(100);
+    v.push_back(100);
 
     std_v.push_back(5);
     std_v.push_back(15);
@@ -216,11 +216,11 @@ int main()
     std_v.push_back(6);
     std_v.push_back(86);
      std_v.push_back(100);
-    std::cout << "size " << std_v.size() << " capacity " << std_v.capacity() << std::endl;
-    std::cout << "my size " << v.size() << " capacity " << v.capacity() << std::endl;
+   // std::cout << "size " << std_v.size() << " capacity " << std_v.capacity() << std::endl;
+   // std::cout << "my size " << v.size() << " capacity " << v.capacity() << std::endl;
    // std_v.push_back(100);
 
-   /*
+   
     ft::vector<int>::reverse_iterator rit = v.rbegin();
     ft::vector<int>::reverse_iterator ritr = v.rend();
     ft::vector<int>::iterator it = v.begin();
@@ -244,6 +244,6 @@ int main()
     {
         std::cout << *rit << " , ";
     }
-*/
+
     return 0;
 }

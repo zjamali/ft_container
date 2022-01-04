@@ -239,7 +239,6 @@ namespace ft
         {
             if (this->_size == this->_capacity)
             {
-                std::cout << "  - > capcity " << this->_capacity << " - > size " << this->_size << std::endl;
                 if (this->_capacity == 0)
                     this->_capacity = 2;
                 else
