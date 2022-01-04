@@ -20,8 +20,8 @@ namespace ft
         typedef int difference_type;
         typedef size_t size_type;
 
-        typedef ft::vec_iterator<T *> iterator;
-        typedef ft::vec_iterator<const T> const_iterator;
+        typedef ft::vec_iterator<pointer> iterator;
+        typedef ft::vec_iterator<const pointer> const_iterator;
         typedef ft::reverse_iterator<iterator> reverse_iterator;
         typedef ft::reverse_iterator<const iterator> const_reverse_iterator;
 
@@ -38,13 +38,7 @@ namespace ft
                         const allocator_type &alloc = allocator_type())
             : _alloc(alloc), _capacity(n), _size(n)
         {
-            // allocate memory
-            this->_rawData = _alloc.allocate(this->_capacity);
-            // initialize _rawData
-            for (size_type i = 0; i < this->_size; i++)
-            {
-                _alloc.construct(&_rawData[i], val);
-            }
+            this->assign(n, val);
         }
 
         template <class InputIterator>
@@ -52,14 +46,7 @@ namespace ft
                const allocator_type &alloc = allocator_type())
             : _alloc(alloc), _capacity(last - first), _size(_capacity)
         {
-            // allocate memory
-            this->_rawData = _alloc.allocate(this->_capacity);
-            // initialize _rawData
-            for (size_type i = 0; i < this->_size; i++)
-            {
-                _alloc.construct(&_rawData[i], *first);
-                first++;
-            }
+            this->assign(first, last);
         }
 
         // COPY constructor
@@ -89,7 +76,6 @@ namespace ft
             {
                 this->_alloc.destroy(&_rawData[i]);
             }
-
             this->_alloc.deallocate(this->_rawData, this->_capacity);
         };
 
@@ -111,36 +97,24 @@ namespace ft
         }
         size_type max_size() const
         {
-            return (this->_alloc.max_size());
+            return (std::min(std::numeric_limits<difference_type>::max(), this->_alloc.max_size()));
         }
 
         void resize(size_type n, value_type val = value_type())
         {
-            if (this->_size > n)
+            size_type _sz = this->_size;
+            if (_sz > n)
             {
-                T *ptr = this->_alloc.allocate(this->_capacity);
-                for (size_type i = 0; i < this->_size; i++)
-                {
-                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
-                }
-                this->_alloc.deallocate(this->_rawData, this->_capacity);
-                this->_rawData = ptr;
-            }
-            else
-            {
-                T *ptr = this->_alloc.allocate(n);
-                for (size_type i = 0; i < this->_size; i++)
-                {
-                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
-                }
-                for (size_type i = this->_size; i < n; i++)
-                {
-                    this->_alloc.construct(&ptr[i], val);
-                }
-                this->_alloc.deallocate(this->_rawData, this->_capacity);
-                this->_rawData = ptr;
-                this->_capacity = n;
+                for (size_type i = n - 1; i < _sz; i++)
+                    _alloc.destroy(&(this->_rawData[i]));
                 this->_size = n;
+            }
+            else if (_sz < n)
+            {
+                this->reserve(n);
+                this->_size = n;
+                for (size_type i = _sz - 1; i < this->_size; i++)
+                    _alloc.construct(&(this->_rawData[i]), val);
             }
         }
 
@@ -148,14 +122,22 @@ namespace ft
         {
             if (this->_capacity < n)
             {
-                T *ptr = this->_alloc.allocate(n);
+                size_type oldCapacity = this->_capacity;
+                if (this->_capacity * 2 >= n)
+                    this->_capacity *= 2;
+                else
+                    this->_capacity = n; 
+                pointer ptr = this->_alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_size; i++)
                 {
-                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
+                    this->_alloc.construct(ptr + i, this->_rawData[i]);
                 }
-                this->_alloc.deallocate(this->_rawData, this->_capacity);
+                for(size_type i = 0; i < this->_size; i++)
+                {
+                    _alloc.destroy(&this->_rawData[i]);
+                }
+                this->_alloc.deallocate(this->_rawData, oldCapacity);
                 this->_rawData = ptr;
-                this->_capacity = n;
             }
         }
 
@@ -207,57 +189,41 @@ namespace ft
 
     public:
         /*********  MODIFIERS MEMBERS FUNCTIONS  ********/
-        // template<class InputIterator>
-        // void assign(InputIterator first, InputIterator last);
+        template <class InputIterator>
+        void assign(InputIterator first, InputIterator last)
+        {
+            difference_type rangeLen = last - first;
+            if (rangeLen <= 0)
+                throw std::out_of_range("vector");
+            this->reserve(rangeLen);
+            this->_size = rangeLen;
+            size_type i = 0;
+            while (i < this->_size)
+            {
+                _alloc.construct(&(this->_rawData[i]), *first);
+                i++;
+                first++;
+            }
+        }
 
         void assign(size_type n, const value_type &val)
         {
-            if (this->_capacity < n)
+            if (n <= 0)
+                return ;
+            this->reserve(n);
+            this->_size = n;
+            size_type i = 0;
+            while (i < this->_size)
             {
-                T *ptr = this->_alloc.allocate(n);
-                for (size_type i = 0; i < this->_size; i++)
-                {
-                    this->_alloc.construct(&ptr[i], val);
-                }
-                this->_alloc.deallocate(this->_rawData, this->_capacity);
-                this->_rawData = ptr;
-                this->_capacity = n;
-                this->_size = n;
-            }
-            else
-            {
-                for (size_type i = 0; i < n; i++)
-                {
-                    this->_alloc.construct(&_rawData[i], val);
-                }
-                this->_capacity = n;
-                this->_size = n;
+                _alloc.construct(&(this->_rawData[i]), val);
+                i++;
             }
         }
 
         void push_back(const value_type &val)
         {
-            if (this->_size == this->_capacity)
-            {
-                if (this->_capacity == 0)
-                    this->_capacity = 2;
-                else
-                    this->_capacity = this->_capacity * 2;
-                T *ptr = this->_alloc.allocate(this->_capacity);
-                for (size_type i = 0; i < this->_size; i++)
-                {
-                    this->_alloc.construct(&ptr[i], this->_rawData[i]);
-                }
-                this->_alloc.deallocate(this->_rawData, this->_capacity);
-                this->_rawData = ptr;
-                this->_rawData[this->_size] = val;
-                this->_size++;
-            }
-            else
-            {
-                this->_rawData[this->_size] = val;
-                this->_size++;
-            }
+            this->reserve(this->_size + 1);
+            _alloc.construct(&this->_rawData[_size++], val);
         }
 
         void pop_back()
@@ -283,17 +249,10 @@ namespace ft
 
         void swap(vector &x)
         {
-            T *_rawData = x._rawData;
-            size_type _size = x._size;
-            size_type _capacity = x._capacity;
-
-            x._rawData = this->_rawData;
-            x._size = this->_size;
-            x._capacity = this->_capacity;
-
-            this->_rawData = _rawData;
-            this->_size = _size;
-            this->_capacity = _capacity;
+            std::swap(this->_rawData, x._rawData);
+            std::swap(this->_size, x._size);
+            std::swap(this->_capacity, x._capacity);
+            std::swap(this->_alloc, x._alloc);
         }
 
         allocator_type get_allocator() const

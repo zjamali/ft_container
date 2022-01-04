@@ -184,65 +184,105 @@ int main()
     // std::cout << "capacity : " << v.capacity() << " " << v.size() << std::endl;
     // v.reserve(10);
     // v.reserve(30);
+    /*
+        ft::vector<int> v(5);
+       std::vector<int> std_v(5);
+        //std::vector<int> std_v;
+        //for (size_t i = 0; i < 5; i++)
+        //{
+        //     v[i] = i;
+        //     std_v[i] = i;
+        //}
+       v.push_back(6);
+       v.push_back(15);
+       v.push_back(12);
+       v.push_back(6);
+       v.push_back(86);
+       v.push_back(6);
+       v.push_back(15);
+       v.push_back(12);
+       v.push_back(6);
+       v.push_back(86);
+        v.push_back(100);
 
-    ft::vector<int> v(5);
-   std::vector<int> std_v(5);
-    //std::vector<int> std_v;
-    //for (size_t i = 0; i < 5; i++)
-    //{
-    //     v[i] = i;
-    //     std_v[i] = i;
-    //}
-   v.push_back(6);
-   v.push_back(15);
-   v.push_back(12);
-   v.push_back(6);
-   v.push_back(86);
-   v.push_back(6);
-   v.push_back(15);
-   v.push_back(12);
-   v.push_back(6);
-   v.push_back(86);
-    v.push_back(100);
+        std_v.push_back(5);
+        std_v.push_back(15);
+        std_v.push_back(12);
+        std_v.push_back(6);
+        std_v.push_back(86);
+        std_v.push_back(5);
+        std_v.push_back(15);
+        std_v.push_back(12);
+        std_v.push_back(6);
+        std_v.push_back(86);
+         std_v.push_back(100);
+       // std::cout << "size " << std_v.size() << " capacity " << std_v.capacity() << std::endl;
+       // std::cout << "my size " << v.size() << " capacity " << v.capacity() << std::endl;
+       // std_v.push_back(100);
 
-    std_v.push_back(5);
-    std_v.push_back(15);
-    std_v.push_back(12);
-    std_v.push_back(6);
-    std_v.push_back(86);
-    std_v.push_back(5);
-    std_v.push_back(15);
-    std_v.push_back(12);
-    std_v.push_back(6);
-    std_v.push_back(86);
-     std_v.push_back(100);
-   // std::cout << "size " << std_v.size() << " capacity " << std_v.capacity() << std::endl;
-   // std::cout << "my size " << v.size() << " capacity " << v.capacity() << std::endl;
-   // std_v.push_back(100);
 
-   
-    ft::vector<int>::reverse_iterator rit = v.rbegin();
-    ft::vector<int>::reverse_iterator ritr = v.rend();
-    ft::vector<int>::iterator it = v.begin();
-    ft::vector<int>::iterator itr = v.end();
-    ft::vector<int> vec(it, itr);
+        ft::vector<int>::reverse_iterator rit = v.rbegin();
+        ft::vector<int>::reverse_iterator ritr = v.rend();
+        ft::vector<int>::iterator it = v.begin();
+        ft::vector<int>::iterator itr = v.end();
+        ft::vector<int> vec(it, itr);
 
-    ft::vector<int>::iterator v_it = v.begin();
-    ft::vector<int>::iterator v_itr = v.end();
-    // it++;
-    //  it;
-    //  ft::vector<int>::iterator ite = v.end();
+        ft::vector<int>::iterator v_it = v.begin();
+        ft::vector<int>::iterator v_itr = v.end();
+        // it++;
+        //  it;
+        //  ft::vector<int>::iterator ite = v.end();
 
-    for (; v_it != v_itr; v_it++)
+        for (; v_it != v_itr; v_it++)
+        {
+            std::cout << *v_it << " , ";
+        }
+
+        std::cout << std::endl;
+
+        for (; rit != ritr; rit++)
+        {
+            std::cout << *rit << " , ";
+        }
+    */
+
+        std::vector<int> v1;
+        int a[] = {1, 2, 3};
+
+        // assign first 2 values
+        v1.assign(a + 1, a + 3);
+
+        std::cout << "Elements of vector1 are\n";
+        for (int i = 0; i < v1.size(); i++)
+            std::cout << v1[i] << " ";
+
+        std::vector<int> v2(5, 7);
+        // assign first 3 values
+        v2.assign(a, a + 3);
+
+        std::cout << "\nElements of vector2 are\n";
+        for (int i = 0; i < v2.size(); i++)
+            std::cout << v2[i] << " ";
+        std::cout << "\n";
+    
     {
-        std::cout << *v_it << " , ";
-    }
+        ft::vector<int> v1;
+        int a[] = {1, 2, 3};
 
-    std::cout << std::endl;
+        // assign first 2 values
+        v1.assign(a + 1, a + 3);
 
-    for (; rit != ritr; rit++)
-    {
-        std::cout << *rit << " , ";
+        std::cout << "Elements of vector1 are\n";
+        for (int i = 0; i < v1.size(); i++)
+            std::cout << v1[i] << " ";
+
+        ft::vector<int> v2;
+        // assign first 3 values
+        v2.assign(a, a + 3);
+
+        std::cout << "\nElements of vector2 are\n";
+        for (int i = 0; i < v2.size(); i++)
+            std::cout << v2[i] << " ";
     }
 
     return 0;
