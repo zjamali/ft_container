@@ -256,17 +256,25 @@ namespace ft
             difference_type firstPosIndex = position - this->begin();
             difference_type lastPosIndex = firstPosIndex + n - 1;
 
-            for (size_type i = firstPosIndex ; i <= lastPosIndex; i++)
+            for (size_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
                 this->insert(this->begin() + i, val);
             }
         }
-        /*
+
         template <class InputIterator>
-        void insert(iterator position, InputIterator first, InputIterator last)
+        void insert(iterator position, InputIterator first, InputIterator last,
+        typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = nullptr)
         {
+            difference_type firstPosIndex = position - this->begin();
+            difference_type lastPosIndex = firstPosIndex + last - first - 1;
+            for (size_type i = firstPosIndex; i <= lastPosIndex; i++)
+            {
+                this->insert(this->begin() + i, *first);
+                first++;
+            }
         }
-        */
+
         void clear()
         {
             for (size_type i = 0; i < this->_size; i++)
