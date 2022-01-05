@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 #include "iterator.hpp"
-#include "traits.hpp"
+#include "utils.hpp"
 
 namespace ft
 {
@@ -362,5 +362,41 @@ namespace ft
             return reverse_iterator(this->begin());
         }
     };
+    template <class T, class Alloc>
+    bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    {
+        return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+
+    template <class T, class Alloc>
+    bool operator!=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    {
+        return !(lhs == rhs);
+    }
+
+    template <class T, class Alloc>
+    bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    {
+
+    }
+
+    template <class T, class Alloc>
+    bool operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    { 
+        //!(>)
+    }
+
+    template <class T, class Alloc>
+    bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    {
+         //rhs < lhs
+    }
+
+    template <class T, class Alloc>
+    bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    {
+        //!(<)
+    }
+
 }
 #endif

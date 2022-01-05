@@ -1,47 +1,47 @@
-#include "vector.hpp"
-#include <iostream>
-#include <vector>
+// lexicographical_compare example
+#include <iostream>  // std::cout, std::boolalpha
+#include <algorithm> // std::lexicographical_compare
+#include <cctype>    // std::tolower
+#include "utils.hpp"
+// a case-insensitive comparison function:
+bool mycomp(char c1, char c2)
+{
+    return std::tolower(c1) < std::tolower(c2);
+}
 
 int main()
 {
-    std::vector<int> myvector;
+    char foo[] = "Apple";
+    char bar[] = "apartment";
 
-    // set some values (from 1 to 10)
-    for (int i = 1; i <= 10; i++)
-        myvector.push_back(i);
-    std::cout << "capacity " << myvector.capacity() << std::endl;
+    std::cout << std::boolalpha;
 
-    std::vector<int>::iterator it = myvector.begin();
-    // erase the 6th element
-    //it = myvector.erase(it + 5);
-    //std::cout << " it " << *it << std::endl; 
-    // erase the first 3 elements:
-    myvector.erase(myvector.begin(), myvector.begin() + 3);
+    std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
 
-    std::cout << "myvector contains:";
-    for (unsigned i = 0; i < myvector.size(); ++i)
-        std::cout << ' ' << myvector[i];
+    std::cout << "Using default comparison (operator<): ";
+    std::cout << std::lexicographical_compare(foo, foo + 5, bar, bar + 9);
+    std::cout << '\n';
+
+    std::cout << "Using mycomp as comparison object: ";
+    std::cout << std::lexicographical_compare(foo, foo + 5, bar, bar + 9, mycomp);
     std::cout << '\n';
 
     {
-        ft::vector<int> myvector;
+        char foo[] = "Apple";
+        char bar[] = "apartment";
 
-        // set some values (from 1 to 10)
-        for (int i = 1; i <= 10; i++)
-            myvector.push_back(i);
-        std::cout << "capacity " << myvector.capacity() << std::endl;
+        std::cout << std::boolalpha;
 
-        ft::vector<int>::iterator it = myvector.begin();
-        // erase the 6th element
-        //it = myvector.erase(it + 5);
-        //std::cout << " it " << *it << std::endl; 
-        // erase the first 3 elements:
-        myvector.erase(myvector.begin(), myvector.begin() + 3);
+        std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
 
-        std::cout << "myvector contains:";
-        for (unsigned i = 0; i < myvector.size(); ++i)
-            std::cout << ' ' << myvector[i];
+        std::cout << "Using default comparison (operator<): ";
+        std::cout << ft::lexicographical_compare(foo, foo + 5, bar, bar + 9);
+        std::cout << '\n';
+
+        std::cout << "Using mycomp as comparison object: ";
+        std::cout << ft::lexicographical_compare(foo, foo + 5, bar, bar + 9, mycomp);
         std::cout << '\n';
     }
+
     return 0;
 }
