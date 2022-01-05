@@ -1,8 +1,9 @@
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 #include <memory>
-#include "iterator.hpp"
 #include <iostream>
+#include "iterator.hpp"
+#include "traits.hpp"
 
 namespace ft
 {
@@ -43,7 +44,7 @@ namespace ft
         template <class InputIterator>
         vector(InputIterator first, InputIterator last,
                const allocator_type &alloc = allocator_type(),
-               typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = nullptr)
+               typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = nullptr)
             : _alloc(alloc), _capacity(0), _size(0), _rawData(NULL)
         {
             this->assign(first, last);
@@ -263,7 +264,7 @@ namespace ft
 
         template <class InputIterator>
         void insert(iterator position, InputIterator first, InputIterator last,
-                    typename std::enable_if<!std::is_integral<InputIterator>::value>::type * = nullptr)
+                    typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = nullptr)
         {
             difference_type firstPosIndex = position - this->begin();
             difference_type lastPosIndex = firstPosIndex + last - first - 1;
