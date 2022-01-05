@@ -80,6 +80,21 @@ namespace ft
     {
         static const bool value = true;
     };
+    template <>
+    struct is_integral<char16_t>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<char32_t>
+    {
+        static const bool value = true;
+    };
+    template <>
+    struct is_integral<wchar_t>
+    {
+        static const bool value = true;
+    };
 
     template <class InputIterator1, class InputIterator2>
     bool equal(InputIterator1 first1, InputIterator1 last1,
@@ -94,7 +109,7 @@ namespace ft
         }
         return true;
     }
-    /*
+
     template <class InputIterator1, class InputIterator2, class BinaryPredicate>
     bool equal(InputIterator1 first1, InputIterator1 last1,
                InputIterator2 first2, BinaryPredicate pred)
@@ -108,7 +123,7 @@ namespace ft
         }
         return true;
     }
-    */
+
     template <class InputIterator1, class InputIterator2>
     bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1,
                                  InputIterator2 first2, InputIterator2 last2)
