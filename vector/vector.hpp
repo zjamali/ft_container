@@ -17,19 +17,19 @@ namespace ft
         typedef T &reference;
         typedef T &const_reference;
         typedef T *pointer;
-        typedef T *const_pointer;
+        typedef const T *const_pointer;
         typedef int difference_type;
         typedef size_t size_type;
         typedef ft::vec_iterator<pointer> iterator;
-        typedef ft::vec_iterator<const pointer> const_iterator;
+        typedef ft::vec_iterator<const_pointer> const_iterator;
         typedef ft::reverse_iterator<iterator> reverse_iterator;
-        typedef ft::reverse_iterator<const iterator> const_reverse_iterator;
+        typedef ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
     private:
         allocator_type _alloc;
         size_type _capacity;
         size_type _size;
-        T *_rawData;
+        pointer _rawData;
 
     public:
         explicit vector(const allocator_type &alloc = allocator_type())
@@ -330,7 +330,7 @@ namespace ft
 
         const_iterator begin() const
         {
-            return iterator(this->_rawData);
+            return const_iterator(this->_rawData);
         }
 
         iterator end()
@@ -339,7 +339,7 @@ namespace ft
         }
         const_iterator end() const
         {
-            return iterator(this->_rawData + this->_size);
+            return const_iterator(this->_rawData + this->_size);
         }
 
         reverse_iterator rbegin()
@@ -349,7 +349,7 @@ namespace ft
 
         const_reverse_iterator rbegin() const
         {
-            return reverse_iterator(this->end() - 1);
+            return const_reverse_iterator(this->end() - 1);
         }
 
         reverse_iterator rend()
@@ -359,11 +359,11 @@ namespace ft
 
         const_reverse_iterator rend() const
         {
-            return reverse_iterator(this->begin());
+            return const_reverse_iterator(this->begin());
         }
     };
     template <class T, class Alloc>
-    bool operator==(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
+    bool operator==(const  vector<T, Alloc> &lhs,const  vector<T, Alloc> &rhs)
     {
         return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
     }
@@ -377,25 +377,25 @@ namespace ft
     template <class T, class Alloc>
     bool operator<(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
     {
-
+        return (ft::lexicographical_compare(lhs.begin(),lhs.end(),rhs.begin(),rhs.end()));
     }
 
     template <class T, class Alloc>
     bool operator<=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
     { 
-        //!(>)
+        return ((lhs < rhs) || lhs == rhs);
     }
 
     template <class T, class Alloc>
     bool operator>(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
     {
-         //rhs < lhs
+        return (ft::lexicographical_compare(rhs.begin(),rhs.end(),lhs.begin(),lhs.end()));
     }
 
     template <class T, class Alloc>
     bool operator>=(const vector<T, Alloc> &lhs, const vector<T, Alloc> &rhs)
     {
-        //!(<)
+        return ((lhs > rhs) || lhs == rhs);
     }
 
 }

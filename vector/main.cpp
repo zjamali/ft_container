@@ -1,46 +1,44 @@
-// lexicographical_compare example
-#include <iostream>  // std::cout, std::boolalpha
-#include <algorithm> // std::lexicographical_compare
-#include <cctype>    // std::tolower
-#include "utils.hpp"
-// a case-insensitive comparison function:
-bool mycomp(char c1, char c2)
-{
-    return std::tolower(c1) < std::tolower(c2);
-}
+
+#include <iostream>
+#include <vector>
+#include "vector.hpp"
 
 int main()
 {
-    char foo[] = "Apple";
-    char bar[] = "apartment";
 
-    std::cout << std::boolalpha;
+    std::vector<int> foo(3, 100); // three ints with a value of 100
+    std::vector<int> bar(2, 200); // two ints with a value of 200
 
-    std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
+    if (foo == bar)
+        std::cout << "foo and bar are equal\n";
+    if (foo != bar)
+        std::cout << "foo and bar are not equal\n";
+    if (foo < bar)
+        std::cout << "foo is less than bar\n";
+    if (foo > bar)
+        std::cout << "foo is greater than bar\n";
+    if (foo <= bar)
+        std::cout << "foo is less than or equal to bar\n";
+    if (foo >= bar)
+        std::cout << "foo is greater than or equal to bar\n";
 
-    std::cout << "Using default comparison (operator<): ";
-    std::cout << std::lexicographical_compare(foo, foo + 5, bar, bar + 9);
-    std::cout << '\n';
-
-    std::cout << "Using mycomp as comparison object: ";
-    std::cout << std::lexicographical_compare(foo, foo + 5, bar, bar + 9, mycomp);
-    std::cout << '\n';
-
+    std::cout << "\n\n";
     {
-        char foo[] = "Apple";
-        char bar[] = "apartment";
+        ft::vector<int> foo(2, 100); // three ints with a value of 100
+        ft::vector<int> bar(2, 100); // two ints with a value of 200
 
-        std::cout << std::boolalpha;
-
-        std::cout << "Comparing foo and bar lexicographically (foo<bar):\n";
-
-        std::cout << "Using default comparison (operator<): ";
-        std::cout << ft::lexicographical_compare(foo, foo + 5, bar, bar + 9);
-        std::cout << '\n';
-
-        std::cout << "Using mycomp as comparison object: ";
-        std::cout << ft::lexicographical_compare(foo, foo + 5, bar, bar + 9, mycomp);
-        std::cout << '\n';
+        if (foo == bar)
+            std::cout << "foo and bar are equal\n";
+        if (foo != bar)
+            std::cout << "foo and bar are not equal\n";
+        if (foo < bar)
+            std::cout << "foo is less than bar\n";
+        if (foo > bar)
+            std::cout << "foo is greater than bar\n";
+        if (foo <= bar)
+            std::cout << "foo is less than or equal to bar\n";
+        if (foo >= bar)
+            std::cout << "foo is greater than or equal to bar\n";
     }
 
     return 0;

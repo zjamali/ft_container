@@ -48,10 +48,10 @@ namespace ft
     };
 
     template <class T>
-    class vec_iterator : public iterator<std::random_access_iterator_tag, T *>
+    class vec_iterator : public iterator<std::random_access_iterator_tag, T >
     {
     public:
-        typedef T iterator_type;
+        // typedef T pointer;
         typedef typename iterator_traits<T>::value_type value_type;
         typedef typename iterator_traits<T>::difference_type difference_type;
         typedef typename iterator_traits<T>::pointer pointer;
@@ -143,7 +143,7 @@ namespace ft
     bool operator==(const vec_iterator<Iterator> &lhs,
                     const vec_iterator<Iterator> &rhs)
     {
-        return (lhs->ptr == rhs->ptr);
+        return (lhs.base() == rhs.base());
     }
     template <class Iterator>
     bool operator!=(const vec_iterator<Iterator> &lhs,
