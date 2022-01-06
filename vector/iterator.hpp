@@ -100,7 +100,7 @@ namespace ft
 
         vec_iterator &operator+=(difference_type n)
         {
-            *this->ptr = *this->ptr + n;
+            this->ptr = this->ptr + n;
             return (*this);
         }
 
@@ -125,7 +125,7 @@ namespace ft
 
         vec_iterator &operator-=(difference_type n)
         {
-            *this = *this - n;
+            this = this - n;
             return (*this);
         }
 
@@ -248,7 +248,7 @@ namespace ft
 
         reverse_iterator &operator+=(difference_type n)
         {
-            *this = *this + n;
+            this = this + n;
             return (*this);
         }
 
@@ -273,7 +273,7 @@ namespace ft
 
         reverse_iterator &operator-=(difference_type n)
         {
-            *this = *this - n;
+            this = this - n;
             return (*this);
         }
 

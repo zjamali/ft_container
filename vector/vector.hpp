@@ -4,6 +4,7 @@
 #include <iostream>
 #include "iterator.hpp"
 #include "utils.hpp"
+#include <algorithm>
 
 namespace ft
 {
@@ -18,7 +19,7 @@ namespace ft
         typedef T &const_reference;
         typedef T *pointer;
         typedef const T *const_pointer;
-        typedef int difference_type;
+        typedef std::ptrdiff_t difference_type;
         typedef size_t size_type;
         typedef ft::vec_iterator<pointer> iterator;
         typedef ft::vec_iterator<const_pointer> const_iterator;
@@ -98,7 +99,7 @@ namespace ft
         }
         size_type max_size() const
         {
-            return (std::min(std::numeric_limits<difference_type>::max(), this->_alloc.max_size()));
+            return (std::min(std::numeric_limits<difference_type>::max(), (difference_type)this->_alloc.max_size()));
         }
 
         void resize(size_type n, value_type val = value_type())
@@ -114,7 +115,7 @@ namespace ft
             {
                 this->reserve(n);
                 this->_size = n;
-                for (size_type i = _sz - 1; i < this->_size; i++)
+                for (size_type i = _sz; i < this->_size; i++)
                     _alloc.construct(&(this->_rawData[i]), val);
             }
         }
@@ -204,7 +205,8 @@ namespace ft
             }
         }
         template <class InputIterator>
-        void assign(InputIterator first, InputIterator last)
+        void assign(InputIterator first, InputIterator last,
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = nullptr)
         {
             difference_type rangeLen = last - first;
             if (rangeLen <= 0)
@@ -214,7 +216,7 @@ namespace ft
             size_type i = 0;
             while (i < this->_size)
             {
-                _alloc.construct(&(this->_rawData[i]), *first);
+                _alloc.construct(&this->_rawData[i], *first);
                 i++;
                 first++;
             }
@@ -237,13 +239,13 @@ namespace ft
             difference_type positionIndex = position - this->begin();
             size_type newSize;
 
-            if (positionIndex > this->_size + 1)
+            if ((size_type)positionIndex > this->_size + 1)
                 newSize = this->_size + (positionIndex - this->_size + 1);
             else
                 newSize = this->_size + 1;
             this->reserve(newSize);
             this->_size = newSize;
-            for (size_type i = this->_size - 1; i > positionIndex; i--)
+            for (difference_type i = this->_size - 1; i > positionIndex; i--)
             {
                 this->_rawData[i] = this->_rawData[i - 1];
             }
@@ -254,9 +256,10 @@ namespace ft
         void insert(iterator position, size_type n, const value_type &val)
         {
             difference_type firstPosIndex = position - this->begin();
-            difference_type lastPosIndex = firstPosIndex + n - 1;
 
-            for (size_type i = firstPosIndex; i <= lastPosIndex; i++)
+            difference_type lastPosIndex = firstPosIndex + n - 1;
+            this->reserve(this->_size + n);
+            for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
                 this->insert(this->begin() + i, val);
             }
@@ -268,7 +271,10 @@ namespace ft
         {
             difference_type firstPosIndex = position - this->begin();
             difference_type lastPosIndex = firstPosIndex + last - first - 1;
-            for (size_type i = firstPosIndex; i <= lastPosIndex; i++)
+            difference_type ranglen = last - first;
+            this->reserve(this->_size + ranglen);
+
+            for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
                 this->insert(this->begin() + i, *first);
                 first++;
@@ -297,7 +303,7 @@ namespace ft
             difference_type index = position - this->begin();
 
             this->_alloc.destroy(&_rawData[index]);
-            for (difference_type i = index; i < this->_size - 1; i++)
+            for (size_type i = index; i < this->_size - 1; i++)
             {
                 this->_rawData[i] = this->_rawData[i + 1];
             }
@@ -398,5 +404,10 @@ namespace ft
         return ((lhs > rhs) || lhs == rhs);
     }
 
+    template <class T, class Alloc>
+    void swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+    {
+        x.swap(y);
+    }
 }
 #endif
