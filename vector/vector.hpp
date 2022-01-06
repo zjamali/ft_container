@@ -216,7 +216,6 @@ namespace ft
         {
             if (n <= 0)
                 return;
-            //this->reserve(n);
             this->assign_alloctor(n);
             this->_size = n;
             size_type i = 0;
@@ -234,7 +233,6 @@ namespace ft
             if (rangeLen <= 0)
                 throw std::out_of_range("vector");
             this->assign_alloctor(rangeLen);
-            //this->reserve(rangeLen);
             this->_size = rangeLen;
             size_type i = 0;
             while (i < this->_size)

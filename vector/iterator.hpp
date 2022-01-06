@@ -48,10 +48,9 @@ namespace ft
     };
 
     template <class T>
-    class vec_iterator : public iterator<std::random_access_iterator_tag, T >
+    class vec_iterator : public iterator<std::random_access_iterator_tag, T>
     {
     public:
-        // typedef T pointer;
         typedef typename iterator_traits<T>::value_type value_type;
         typedef typename iterator_traits<T>::difference_type difference_type;
         typedef typename iterator_traits<T>::pointer pointer;
