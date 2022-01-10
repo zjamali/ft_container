@@ -113,14 +113,15 @@ namespace ft
             }
             else if (_sz < n)
             {
-                this->reserve(n);
+                this->my_reserve(n);
                 this->_size = n;
                 for (size_type i = _sz; i < this->_size; i++)
                     _alloc.construct(&(this->_rawData[i]), val);
             }
         }
 
-        void reserve(size_type n)
+    private:
+        void my_reserve(size_type n)
         {
             if (this->_capacity < n)
             {
@@ -129,6 +130,27 @@ namespace ft
                     this->_capacity *= 2;
                 else
                     this->_capacity = n;
+                pointer ptr = this->_alloc.allocate(this->_capacity);
+                for (size_type i = 0; i < this->_size; i++)
+                {
+                    this->_alloc.construct(ptr + i, this->_rawData[i]);
+                }
+                for (size_type i = 0; i < this->_size; i++)
+                {
+                    _alloc.destroy(&this->_rawData[i]);
+                }
+                this->_alloc.deallocate(this->_rawData, oldCapacity);
+                this->_rawData = ptr;
+            }
+        }
+
+    public:
+        void reserve(size_type n)
+        {
+            if (this->_capacity < n)
+            {
+                size_type oldCapacity = this->_capacity;
+                this->_capacity = n;
                 pointer ptr = this->_alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_size; i++)
                 {
@@ -245,8 +267,9 @@ namespace ft
 
         void push_back(const value_type &val)
         {
-            this->reserve(this->_size + 1);
-            _alloc.construct(&this->_rawData[_size++], val);
+            this->my_reserve(this->_size + 1);
+            _alloc.construct(&this->_rawData[_size], val);
+            this->_size++;
         }
 
         void pop_back()
@@ -264,7 +287,7 @@ namespace ft
                 newSize = this->_size + (positionIndex - this->_size + 1);
             else
                 newSize = this->_size + 1;
-            this->reserve(newSize);
+            this->my_reserve(newSize);
             this->_size = newSize;
             for (difference_type i = this->_size - 1; i > positionIndex; i--)
             {
@@ -279,7 +302,7 @@ namespace ft
             difference_type firstPosIndex = position - this->begin();
 
             difference_type lastPosIndex = firstPosIndex + n - 1;
-            this->reserve(this->_size + n);
+            this->my_reserve(this->_size + n);
             for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
                 this->insert(this->begin() + i, val);
@@ -293,7 +316,7 @@ namespace ft
             difference_type firstPosIndex = position - this->begin();
             difference_type lastPosIndex = firstPosIndex + last - first - 1;
             difference_type ranglen = last - first;
-            this->reserve(this->_size + ranglen);
+            this->my_reserve(this->_size + ranglen);
 
             for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
@@ -371,12 +394,12 @@ namespace ft
 
         reverse_iterator rbegin()
         {
-            return reverse_iterator(this->end() - 1);
+            return reverse_iterator(this->end());
         }
 
         const_reverse_iterator rbegin() const
         {
-            return const_reverse_iterator(this->end() - 1);
+            return const_reverse_iterator(this->end());
         }
 
         reverse_iterator rend()

@@ -175,16 +175,16 @@ int main(void)
 
 		if (a == b)
 			std::cout << "\na and b are equal\n";
-		//if (b != c)
-		//	std::cout << "b and c are not equal\n";
-		//if (b < c)
-		//	std::cout << "b is less than c\n";
-		//if (c > b)
-		//	std::cout << "c is greater than b\n";
-		//if (a <= b)
-		//	std::cout << "a is less than or equal to b\n";
-		//if (a >= b)
-		//	std::cout << "a is greater than or equal to b\n";
+		if (b != c)
+			std::cout << "b and c are not equal\n";
+		if (b < c)
+			std::cout << "b is less than c\n";
+		if (c > b)
+			std::cout << "c is greater than b\n";
+		if (a <= b)
+			std::cout << "a is less than or equal to b\n";
+		if (a >= b)
+			std::cout << "a is greater than or equal to b\n";
 		std::cout << "=======================================" << std::endl;
 
 	}

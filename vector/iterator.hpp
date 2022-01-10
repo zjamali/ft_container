@@ -105,8 +105,9 @@ namespace ft
 
         vec_iterator operator-(difference_type n) const
         {
-            *this->ptr = *this->ptr - n;
-            return (*this);
+           //*this->ptr = *this->ptr - n;
+            //return (*this);
+            return (vec_iterator(this->ptr - n));
         }
 
         vec_iterator &operator--()
@@ -192,6 +193,10 @@ namespace ft
         return (lhs.base() - rhs.base());
     }
 /////// 
+
+
+
+////////
     template <class T>
     class reverse_iterator : public iterator<std::random_access_iterator_tag, T>
     {
