@@ -1,14 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zjamali <zjamali@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/11 13:10:11 by obouykou          #+#    #+#             */
-/*   Updated: 2022/01/06 15:08:38 by zjamali          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
 
 #include <iostream>
 #include <cmath>
@@ -276,7 +265,6 @@ int main(void)
 
 		NS::vector<int> myvect;
 		NS::vector<int>::iterator it1, it2;
-
 		// set some values:
 		for (int i = 1; i < 10; ++i)
 			myvect.push_back(i * 10);
