@@ -15,9 +15,9 @@ namespace ft
     public:
         typedef T value_type;
         typedef Alloc allocator_type;
-        typedef T &reference;
-        typedef T &const_reference;
-        typedef T *pointer;
+        typedef T& reference;
+        typedef T& const_reference;
+        typedef T* pointer;
         typedef const T *const_pointer;
         typedef std::ptrdiff_t difference_type;
         typedef size_t size_type;
@@ -61,6 +61,10 @@ namespace ft
         {
             if (this != &x)
             {
+                for (size_type i = 0; i < this->_size; i++)
+                {
+                    _alloc.destroy(&_rawData[i]);
+                }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_capacity = x._capacity;
                 this->_size = x._size;
