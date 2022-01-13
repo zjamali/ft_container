@@ -239,7 +239,8 @@ namespace ft
 
         reverse_iterator &operator++()
         {
-            --(*this->iter);
+            //--(*this->iter);
+            --iter;
             return (*this);
         }
 
