@@ -17,6 +17,12 @@ int main()
         std::cout << ":::::: add : " << i << "\n";
         j.add(i);
     }
+    j.add(10);
+    std::cout << "\n\n";
+    j.print();
+    std::cout << "\n\n";
+    j.deleleNode(10);
+    std::cout << "\n\n";
     /*
     j.add(5);
     j.add(8);
@@ -31,5 +37,4 @@ int main()
     j.add(656);
 */
     j.print();
-
 }

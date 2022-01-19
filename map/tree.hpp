@@ -4,7 +4,9 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
-
+#include "print.hpp"
+// template <typename node_ptr>
+// void print2D(node_ptr *root);
 namespace ft
 {
     template <class T>
@@ -179,9 +181,72 @@ namespace ft
                     rightRotation(node);
             }
         }
+
+        node_ptr treeMinimum(node_ptr treeRoot)
+        {
+            while (treeRoot->left != NULL)
+            {
+                treeRoot = treeRoot->left;
+            }
+            return (treeRoot);
+        }
+        node_ptr treeMaximun(node_ptr treeRoot)
+        {
+            while (treeRoot->right != NULL)
+            {
+                treeRoot = treeRoot->right;
+            }
+            return (treeRoot);
+        }
+
+        node_ptr find(node_ptr treeRoot, int value)
+        {
+            node_ptr node = nullptr;
+            while (treeRoot != nullptr)
+            {
+                node = treeRoot;
+                if (treeRoot->data == value)
+                    break;
+                if (this->_comp(value, treeRoot->data))
+                    treeRoot = treeRoot->left;
+                else
+                    treeRoot = treeRoot->right;
+            }
+            if (node->data == value)
+                return (node);
+            return (nullptr);
+        }
+
+        void deleleNode(int value)
+        {
+            node_ptr node = find(this->_root, value);
+
+            if (!node)
+                return;
+            // first case
+            if (!node->left && !node->right)
+            {
+                node_ptr parent = node->parent;
+                if (parent->left == node)
+                {
+                    parent->left = NULL;
+                    parent->bf -= 1;
+                }
+                if (parent->right == node)
+                {
+                    parent->right = NULL;
+                    parent->bf += 1;
+                }
+                this->_alloc.deallocate(node, 1);
+                std::cout << "\n\n\n parent : " << parent->data << "\n";
+                updateBalanceFactor(parent);
+            }
+        }
+
         void print()
         {
             print(this->_root);
+            //print2D(this->_root);
         }
         void print(node_ptr node)
         {
