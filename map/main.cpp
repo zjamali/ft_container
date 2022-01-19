@@ -8,10 +8,13 @@ int main()
     ft::tree<int, int /*,std::greater<int> */> j;
     for (size_t i = 5; i < 10; i++)
     {
+        std::cout << ":::::: add : " << i << "\n";
         j.add(i);
     }
+    
     for (size_t i = 0; i < 5; i++)
     {
+        std::cout << ":::::: add : " << i << "\n";
         j.add(i);
     }
     /*

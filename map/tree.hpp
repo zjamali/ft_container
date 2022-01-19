@@ -84,8 +84,15 @@ namespace ft
 
         void updateBalanceFactor(node_ptr node)
         {
-            if (node->bf < -1 || node->bf > 1 )
-                std::cout << "\n node : " << node->data << " must rebalance \n";
+            if (node->bf < -1 || node->bf > 1)
+            {
+                std::cout << "node : " << node->data << " must rebalance  " << node->bf << "\n";
+                rebalance(node);
+                std::cout << "\n\n";
+                this->print();
+                std::cout << "\n\n";
+                return;
+            }
             node_ptr parent = node->parent;
             if (parent != nullptr)
             {
@@ -99,7 +106,79 @@ namespace ft
                     updateBalanceFactor(parent);
             }
         }
-        void leftRotation(node_ptr node)
+
+        void leftRotation(node_ptr root)
+        {
+            std::cout << "left rotaion of " << root->data << "\n";
+
+            node_ptr newRoot = root->right; // new_root
+            root->right = newRoot->left;    // root get left of new root
+            if (newRoot->left)              // assign parent of of left to root
+                newRoot->left->parent = root;
+
+            newRoot->parent = root->parent; //
+
+            if (root->parent == NULL) // make new_root as tree root
+                this->_root = newRoot;
+            else if (root->parent->left == root)
+                root->parent->left = newRoot;
+            else
+                root->parent->right = newRoot;
+
+            newRoot->left = root;
+            root->parent = newRoot;
+
+            root->bf = root->bf + 1 - std::min(0, newRoot->bf);
+            newRoot->bf = newRoot->bf + 1 + std::max(root->bf, 0);
+        }
+
+        void rightRotation(node_ptr root)
+        {
+            std::cout << "right rotaion of " << root->data << "\n";
+            node_ptr newRoot = root->left; // new_root
+
+            root->left = newRoot->right;
+            if (newRoot->right)
+                newRoot->right->parent = root;
+            newRoot->parent = root->parent;
+
+            if (root->parent == NULL)
+                this->_root = newRoot;
+            else if (root->parent->right == root)
+                root->parent->right = newRoot;
+            else
+                root->parent->left = newRoot;
+
+            newRoot->right = root;
+            root->parent = newRoot;
+
+            root->bf = root->bf - 1 - std::max(0, newRoot->bf);
+            newRoot->bf = newRoot->bf - 1 + std::min(root->bf, 0);
+        }
+
+        void rebalance(node_ptr node)
+        {
+            if (node->bf < 0)
+            {
+                if (node->right && node->right->bf > 0)
+                {
+                    rightRotation(node->right);
+                    leftRotation(node);
+                }
+                else
+                    leftRotation(node);
+            }
+            else if (node->bf > 0)
+            {
+                if (node->left && node->left->bf < 0)
+                {
+                    leftRotation(node->left);
+                    rightRotation(node);
+                }
+                else
+                    rightRotation(node);
+            }
+        }
         void print()
         {
             print(this->_root);
