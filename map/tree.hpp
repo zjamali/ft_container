@@ -94,9 +94,6 @@ namespace ft
             {
                 std::cout << "node : " << node->data << " must rebalance  " << node->bf << "\n";
                 rebalance(node);
-                std::cout << "\n\n";
-                this->print();
-                std::cout << "\n\n";
                 return;
             }
             node_ptr parent = node->parent;
@@ -179,13 +176,8 @@ namespace ft
                 if (node->left && node->left->bf < 0)
                 {
                     leftRotation(node->left);
-                    std::cout << "(\n";
-                    this->print();
-                    std::cout << "(\n";
+                    
                     rightRotation(node);
-                    std::cout << ")\n";
-                    this->print();
-                    std::cout << ")\n";
                 }
                 else
                     rightRotation(node);
@@ -308,25 +300,26 @@ namespace ft
                 if (parent->right == node)
                 {
                     parent->right = newRoot;
-                    updateBalanceFactorAfterDelete(parent,RIGHT);
+                    updateBalanceFactorAfterDelete(parent, RIGHT);
                 }
                 else
                 {
                     parent->left = newRoot;
-                    updateBalanceFactorAfterDelete(parent,LEFT);
+                    updateBalanceFactorAfterDelete(parent, LEFT);
                 }
             }
             this->_alloc.deallocate(node, 1);
-            
         }
         void deleteNodethirdCase(node_ptr node)
         {
             std::cout << "************   third Case deletion ******* \n";
-            node_ptr nodeSuccessor = treeSuccessor(node);
+            //node_ptr nodeSuccessor = treeSuccessor(node);
+            node_ptr nodeSuccessor = treePredecssor(node);
             // node->data = nodeSuccessor->data;
             int nodeSuccessorData = nodeSuccessor->data;
             this->deleleNode(nodeSuccessorData);
             node->data = nodeSuccessorData;
+            std::cout << "data ---> " << nodeSuccessorData << "\n";
         }
         node_ptr treeSuccessor(node_ptr root)
         {
@@ -340,11 +333,23 @@ namespace ft
             }
             return (parent);
         }
+        node_ptr treePredecssor(node_ptr root)
+        {
+            if (root->right)
+                return treeMaximun(root->left);
+            node_ptr parent = root->parent;
+            while (parent && parent->right == root)
+            {
+                root = parent;
+                parent = parent->parent;
+            }
+            return (parent);
+        }
 
         void print()
         {
-            print(this->_root);
-            // print2D(this->_root);
+            //print(this->_root);
+            print2D(this->_root);
         }
         void print(node_ptr node)
         {
