@@ -27,10 +27,10 @@ int main()
     // std::cout << ":::::::::::::::::::::\n";
     // j.deleleNode(4);
     // j.deleleNode(1);
-    std::cout << "\n\n";
-    j.print();
-    std::cout << "\n\n";
-    j.deleleNode(3);
+    //std::cout << "\n\n";
+    //j.print();
+    //std::cout << "\n\n";
+    //j.deleleNode(3);
     // j.add(10);
     // std::cout << "\n\n";
     // j.print();
@@ -50,6 +50,7 @@ int main()
 
     j.add(656);
 */
+    std::cout << " find " <<j.search(0)->data << "\n";
     std::cout << "\n\n";
     j.print();
     std::cout << "\n\n";

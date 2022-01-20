@@ -89,10 +89,8 @@ namespace ft
 
         void updateBalanceFactor(node_ptr node)
         {
-            std::cout << "try to balance " << node->data << "\n";
             if (node->bf < -1 || node->bf > 1)
             {
-                std::cout << "node : " << node->data << " must rebalance  " << node->bf << "\n";
                 rebalance(node);
                 return;
             }
@@ -112,8 +110,6 @@ namespace ft
 
         void leftRotation(node_ptr root)
         {
-            std::cout << "left rotaion of " << root->data << "\n";
-
             node_ptr newRoot = root->right; // new_root
             root->right = newRoot->left;    // root get left of new root
             if (newRoot->left)              // assign parent of of left to root
@@ -137,7 +133,6 @@ namespace ft
 
         void rightRotation(node_ptr root)
         {
-            std::cout << "right rotaion of " << root->data << "\n";
             node_ptr newRoot = root->left; // new_root
 
             root->left = newRoot->right;
@@ -232,13 +227,11 @@ namespace ft
             }
             if (node->bf < -1 || node->bf > 1)
             {
-                std::cout << "delete rebalance of " << node->data << " \n";
                 rebalance(node);
                 return;
             }
             if (node->bf == 0)
             {
-                std::cout << "node fb = 0\n";
                 if (node->parent != nullptr)
                 {
                     if (node->parent->right == node)
@@ -263,7 +256,6 @@ namespace ft
         }
         void deleteNodeFirstCase(node_ptr node)
         {
-            std::cout << "************   first Case deletion ******* \n";
             node_ptr parent = node->parent;
             if (!parent)
                 return;
@@ -282,7 +274,6 @@ namespace ft
         }
         void deleteNodeSecondCase(node_ptr node)
         {
-            std::cout << "************   Second Case deletion *******  of : " << node->data << "\n";
             node_ptr newRoot = nullptr;
             node_ptr parent = node->parent;
 
@@ -312,14 +303,11 @@ namespace ft
         }
         void deleteNodethirdCase(node_ptr node)
         {
-            std::cout << "************   third Case deletion ******* \n";
-            //node_ptr nodeSuccessor = treeSuccessor(node);
-            node_ptr nodeSuccessor = treePredecssor(node);
-            // node->data = nodeSuccessor->data;
-            int nodeSuccessorData = nodeSuccessor->data;
-            this->deleleNode(nodeSuccessorData);
-            node->data = nodeSuccessorData;
-            std::cout << "data ---> " << nodeSuccessorData << "\n";
+            node_ptr nodePredecessor = treePredecessor(node);
+            // node->data = nodePredecessor->data;
+            int nodePredecessorData = nodePredecessor->data;
+            this->deleleNode(nodePredecessorData);
+            node->data = nodePredecessorData;
         }
         node_ptr treeSuccessor(node_ptr root)
         {
@@ -333,7 +321,7 @@ namespace ft
             }
             return (parent);
         }
-        node_ptr treePredecssor(node_ptr root)
+        node_ptr treePredecessor(node_ptr root)
         {
             if (root->right)
                 return treeMaximun(root->left);
@@ -344,6 +332,11 @@ namespace ft
                 parent = parent->parent;
             }
             return (parent);
+        }
+        
+        node_ptr search(int value)
+        {
+            return (this->find(this->_root,value));
         }
 
         void print()
