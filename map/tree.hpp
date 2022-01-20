@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <utility>
 #include "print.hpp"
+
+#define RIGHT 1
+#define LEFT -1
 // template <typename node_ptr>
 // void print2D(node_ptr *root);
 namespace ft
@@ -86,6 +89,7 @@ namespace ft
 
         void updateBalanceFactor(node_ptr node)
         {
+            std::cout << "try to balance " << node->data << "\n";
             if (node->bf < -1 || node->bf > 1)
             {
                 std::cout << "node : " << node->data << " must rebalance  " << node->bf << "\n";
@@ -175,7 +179,13 @@ namespace ft
                 if (node->left && node->left->bf < 0)
                 {
                     leftRotation(node->left);
+                    std::cout << "(\n";
+                    this->print();
+                    std::cout << "(\n";
                     rightRotation(node);
+                    std::cout << ")\n";
+                    this->print();
+                    std::cout << ")\n";
                 }
                 else
                     rightRotation(node);
@@ -217,36 +227,124 @@ namespace ft
             return (nullptr);
         }
 
+        void updateBalanceFactorAfterDelete(node_ptr node, int rightLeft)
+        {
+            if (!node)
+                return;
+            if (node != nullptr)
+            {
+                if (rightLeft == -1)
+                    node->bf -= 1;
+                else
+                    node->bf += 1;
+            }
+            if (node->bf < -1 || node->bf > 1)
+            {
+                std::cout << "delete rebalance of " << node->data << " \n";
+                rebalance(node);
+                return;
+            }
+            if (node->bf == 0)
+            {
+                std::cout << "node fb = 0\n";
+                if (node->parent != nullptr)
+                {
+                    if (node->parent->right == node)
+                        updateBalanceFactorAfterDelete(node->parent, RIGHT);
+                    else
+                        updateBalanceFactorAfterDelete(node->parent, LEFT);
+                }
+            }
+        }
         void deleleNode(int value)
         {
             node_ptr node = find(this->_root, value);
 
-            if (!node)
+            if (!node) // node not found
                 return;
-            // first case
-            if (!node->left && !node->right)
+            if (!node->left && !node->right) // first case node isa leaf node
+                deleteNodeFirstCase(node);
+            else if (node->left == NULL || node->right == NULL) // second case node has only one child
+                deleteNodeSecondCase(node);
+            else /// third case
+                deleteNodethirdCase(node);
+        }
+        void deleteNodeFirstCase(node_ptr node)
+        {
+            std::cout << "************   first Case deletion ******* \n";
+            node_ptr parent = node->parent;
+            if (!parent)
+                return;
+            if (parent->left == node)
             {
-                node_ptr parent = node->parent;
-                if (parent->left == node)
-                {
-                    parent->left = NULL;
-                    parent->bf -= 1;
-                }
+                this->_alloc.deallocate(node, 1);
+                parent->left = NULL;
+                updateBalanceFactorAfterDelete(parent, LEFT);
+            }
+            else
+            {
+                parent->right = NULL;
+                this->_alloc.deallocate(node, 1);
+                updateBalanceFactorAfterDelete(parent, RIGHT);
+            }
+        }
+        void deleteNodeSecondCase(node_ptr node)
+        {
+            std::cout << "************   Second Case deletion *******  of : " << node->data << "\n";
+            node_ptr newRoot = nullptr;
+            node_ptr parent = node->parent;
+
+            // get new root is child of node
+            if (node->left)
+                newRoot = node->left;
+            else
+                newRoot = node->right;
+
+            if (!parent) // node is root
+                this->_root = newRoot;
+            else
+            {
+                newRoot->parent = parent;
                 if (parent->right == node)
                 {
-                    parent->right = NULL;
-                    parent->bf += 1;
+                    parent->right = newRoot;
+                    updateBalanceFactorAfterDelete(parent,RIGHT);
                 }
-                this->_alloc.deallocate(node, 1);
-                std::cout << "\n\n\n parent : " << parent->data << "\n";
-                updateBalanceFactor(parent);
+                else
+                {
+                    parent->left = newRoot;
+                    updateBalanceFactorAfterDelete(parent,LEFT);
+                }
             }
+            this->_alloc.deallocate(node, 1);
+            
+        }
+        void deleteNodethirdCase(node_ptr node)
+        {
+            std::cout << "************   third Case deletion ******* \n";
+            node_ptr nodeSuccessor = treeSuccessor(node);
+            // node->data = nodeSuccessor->data;
+            int nodeSuccessorData = nodeSuccessor->data;
+            this->deleleNode(nodeSuccessorData);
+            node->data = nodeSuccessorData;
+        }
+        node_ptr treeSuccessor(node_ptr root)
+        {
+            if (root->right)
+                return treeMinimum(root->right);
+            node_ptr parent = root->parent;
+            while (parent && parent->right == root)
+            {
+                root = parent;
+                parent = parent->parent;
+            }
+            return (parent);
         }
 
         void print()
         {
             print(this->_root);
-            //print2D(this->_root);
+            // print2D(this->_root);
         }
         void print(node_ptr node)
         {
