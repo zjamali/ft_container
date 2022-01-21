@@ -8,8 +8,7 @@
 
 #define RIGHT 1
 #define LEFT -1
-// template <typename node_ptr>
-// void print2D(node_ptr *root);
+
 namespace ft
 {
     template <class T>
