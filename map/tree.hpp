@@ -341,8 +341,11 @@ namespace ft
 
         void print()
         {
-            //print(this->_root);
+            std::cout<< "\n"; 
+            print(this->_root);
+            std::cout<< "\n"; 
             print2D(this->_root);
+            std::cout<< "\n"; 
         }
         void print(node_ptr node)
         {

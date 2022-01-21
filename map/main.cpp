@@ -7,19 +7,22 @@ int main()
 {
     ft::tree<int, int /*,std::greater<int> */> j;
 
-    for (size_t i = 5; i < 10; i++)
+    for (size_t i = 10; i < 20; i++)
     {
         std::cout << ":::::: add : " << i << "\n";
         j.add(i);
     }
 
-    for (size_t i = 0; i < 5; i++)
+    for (size_t i = 0; i < 10; i++)
     {
         std::cout << ":::::: add : " << i << "\n";
         j.add(i);
     }
-    // std::cout << ":::::::::::::::::::::\n";
-    // j.deleleNode(0);
+
+    std::cout << "/:::::::::::::::::::::\n";
+    j.print();
+    std::cout << "\n:::::::::::::::::::::\n";
+    j.deleleNode(13);
     // j.print();
     // std::cout << ":::::::::::::::::::::\n";
     // j.deleleNode(5);
