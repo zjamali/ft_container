@@ -100,6 +100,7 @@ namespace ft
                 this->_size++;
             }
             updateBalanceFactor(newNode);
+            
         }
 
         void updateBalanceFactor(node_ptr node)
