@@ -22,34 +22,43 @@ namespace ft
         Node(const T &data) : data(data), left(nullptr), right(nullptr), parent(nullptr), bf(0){};
     };
 
-    template <class key, class T, class Compare = std::less<key>, class Alloc = std::allocator<Node<T> > >
+    template <class T, class Compare = std::less<T>, class Alloc = std::allocator<Node<T> > >
     class tree
     {
     public:
-        typedef Alloc allocator_type;
-        typedef Node<T> *node_ptr;
+        typedef T value_type;
         typedef Compare key_compare;
         typedef size_t size_type;
+        typedef Node<value_type> node;
+        typedef Node<value_type> *node_ptr;
+        typedef typename Alloc::template rebind<node>::other                       allocator_type;
+
+        ///typedef typename allocator_type::template rebind<node>::other node_allocator;
 
     private:
         node_ptr _root;
+        node_ptr _end;
         allocator_type _alloc;
         key_compare _comp;
         size_type _size;
 
     public:
-        tree(const allocator_type &alloc = allocator_type(), const key_compare &compare = key_compare())
-            : _root(nullptr), _alloc(alloc), _comp(compare), _size(0){};
+        tree(const key_compare &compare = key_compare(), const allocator_type &alloc = allocator_type())
+            : _root(nullptr), _alloc(alloc), _comp(compare), _size(0) {}
         ~tree(){};
 
-        node_ptr createNode(T const &data)
+        node_ptr createNode(value_type const &data)
         {
-            node_ptr newNode = this->_alloc.allocate(1);
+            // node_ptr newNode = node_allocator(_alloc).allocate(1);
+            node_ptr newNode = _alloc.allocate(1);
             this->_alloc.construct(newNode, data);
             return (newNode);
         }
-
-        void add(T const &data)
+        node_ptr base()
+        {
+            return (this->_root);
+        }
+        void add(value_type const &data)
         {
             node_ptr newNode = createNode(data);
             if (this->_root == nullptr)
@@ -70,6 +79,13 @@ namespace ft
                     root = root->left;
                 else
                     root = root->right;
+            }
+            /// if the key already exist then replace the value
+            if (parent->data.first == newNode->data.first)
+            {
+               parent->data.second = newNode->data.second;
+               _alloc.deallocate(newNode, 1);
+               return;
             }
             if (this->_comp(newNode->data, parent->data))
             {
@@ -170,7 +186,7 @@ namespace ft
                 if (node->left && node->left->bf < 0)
                 {
                     leftRotation(node->left);
-                    
+
                     rightRotation(node);
                 }
                 else
@@ -195,13 +211,15 @@ namespace ft
             return (treeRoot);
         }
 
-        node_ptr find(node_ptr treeRoot, int value)
+        node_ptr find(node_ptr treeRoot, value_type value)
         {
             node_ptr node = nullptr;
+            if (treeRoot == NULL)
+                return (NULL);
             while (treeRoot != nullptr)
             {
                 node = treeRoot;
-                if (treeRoot->data == value)
+                if (treeRoot->data.second == value.second)
                     break;
                 if (this->_comp(value, treeRoot->data))
                     treeRoot = treeRoot->left;
@@ -332,19 +350,19 @@ namespace ft
             }
             return (parent);
         }
-        
-        node_ptr search(int value)
+
+        node_ptr search(value_type value)
         {
-            return (this->find(this->_root,value));
+            return (this->find(this->_root, value));
         }
 
         void print()
         {
-            std::cout<< "\n"; 
+            std::cout << "\n";
             print(this->_root);
-            std::cout<< "\n"; 
-            print2D(this->_root);
-            std::cout<< "\n"; 
+            std::cout << "\n";
+            // print2D(this->_root);
+            // std::cout << "\n";
         }
         void print(node_ptr node)
         {
@@ -352,7 +370,7 @@ namespace ft
                 return;
 
             print(node->left);
-            std::cout << " -> " << node->data << " {" << node->bf << "}   ";
+            std::cout << " -> " << node->data.second << " {" << node->bf << "}   ";
 
             print(node->right);
         }

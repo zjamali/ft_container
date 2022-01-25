@@ -2,63 +2,58 @@
 #include <iostream>
 #include "tree.hpp"
 #include <utility>
+#include "map.hpp"
 #include <map>
 
 int main()
 {
-    ft::tree<int, int /*,std::greater<int> */> j;
-    std::map<int,int> hh;
-    for (size_t i = 0; i < 2000000; i++)
-    {
-        std::cout << ":::::: add : " << i << "\n";
-    }
-/*
-    for (size_t i = 0; i < 10; i++)
-    {
-       // std::cout << ":::::: add : " << i << "\n";
-        j.add(i);
-    }
-    */
-/*
-    std::cout << "/:::::::::::::::::::::\n";
-    j.print();
-    std::cout << "\n:::::::::::::::::::::\n";
-    j.deleleNode(13);
-    */
-    // j.print();
-    // std::cout << ":::::::::::::::::::::\n";
-    // j.deleleNode(5);
-    // j.print();
-    // std::cout << ":::::::::::::::::::::\n";
-    // j.deleleNode(4);
-    // j.deleleNode(1);
-    //std::cout << "\n\n";
-    //j.print();
-    //std::cout << "\n\n";
-    //j.deleleNode(3);
-    // j.add(10);
-    // std::cout << "\n\n";
-    // j.print();
-    // std::cout << "\n\n";
-    // j.deleleNode(10);
-    // std::cout << "\n\n";
     /*
-    j.add(5);
-    j.add(8);
-    j.add(5646);
-    j.add(66);
-    j.add(6654);
-    j.add(9);
-    j.add(10);
-    j.add(1);
-    j.add(6614);
+   // empty map container
+    std::map<int, int> gquiz1;
 
-    j.add(656);
-*/
-/*
-    std::cout << " find " <<j.search(0)->data << "\n";
-    std::cout << "\n\n";
-    j.print();
-    std::cout << "\n\n";
+    // insert elements in random order
+    gquiz1.insert(std::pair<int, int>(1, 40));
+    gquiz1.insert(std::pair<int, int>(2, 30));
+    gquiz1.insert(std::pair<int, int>(3, 60));
+    gquiz1.insert(std::pair<int, int>(4, 20));
+    gquiz1.insert(std::pair<int, int>(5, 50));
+    gquiz1.insert(std::pair<int, int>(6, 50));
+    gquiz1.insert(std::pair<int, int>(7, 10));
+
+    // printing map gquiz1
+    std::map<int, int>::iterator itr;
+    std::cout << "\nThe map gquiz1 is : \n";
+    std::cout << "\tKEY\tELEMENT\n";
+    for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr) {
+        std::cout << '\t' << itr->first << '\t' << itr->second
+             << '\n';
+    }
+    std::cout << std::endl;
     */
+    {
+        // empty map container
+        ft::map<int, int> o;
+
+        // insert elements in random order
+        o.insert(std::pair<int, int>(1, 40));
+        o.insert(std::pair<int, int>(2, 30));
+        o.insert(std::pair<int, int>(3, 60));
+        o.insert(std::pair<int, int>(4, 20));
+        o.insert(std::pair<int, int>(5, 50));
+        o.insert(std::pair<int, int>(6, 50));
+        o.insert(std::pair<int, int>(7, 10));
+        o.insert(std::pair<int, int>(7, 100));
+
+        o.print();
+        // printing map gquiz1
+       // std::map<int, int>::iterator itr;
+       // std::cout << "\nThe map gquiz1 is : \n";
+       // std::cout << "\tKEY\tELEMENT\n";
+       // for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr)
+       // {
+       //     std::cout << '\t' << itr->first << '\t' << itr->second
+       //               << '\n';
+       // }
+       // std::cout << std::endl;
+    }
 }
