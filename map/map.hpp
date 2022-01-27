@@ -7,6 +7,7 @@
 #include <functional>
 #include <cstddef>
 #include "tree.hpp"
+#include "iterator.hpp"
 
 namespace ft
 {
@@ -49,8 +50,8 @@ namespace ft
         typedef typename ft::tree<value_type, value_compare, allocator_type> tree;
         typedef typename ft::Node<value_type> node;
         typedef node *node_ptr;
-        // typedef tree_iterator<node_pointer, pointer> iterator;
-        // typedef tree_iterator<node_pointer, const_pointer> const_iterator;
+        typedef tree_iterator<pointer, node_ptr> iterator;
+        // typedef tree_iterator<const_pointer , node_ptr> const_iterator;
         // typedef typename ft::reverse_iterator<iterator> reverse_iterator;
         // typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
         // typedef typename iterator_traits<iterator>::difference_type difference_type;
@@ -90,20 +91,29 @@ namespace ft
         ~map() {}
 
     public:
-        // std::pair<iterator, bool> 
+        // std::pair<iterator, bool>
         bool insert(const value_type &val)
         {
             node_ptr node = _tree.search(val);
             if (node != nullptr)
                 return false;
             _tree.add(val);
-            std::cout << "fjkjkghajkghajkghjag\n";
-                        return true;
-        };
+            return true;
+        }
         void print()
         {
             if (this->_tree.base() != NULL)
                 _tree.print();
+        }
+
+    public:
+        iterator begin()
+        {
+            return (iterator(this->_tree.treeMinimum(this->_tree.base())));
+        }
+        iterator end()
+        {
+            return (iterator(this->_tree.end()));
         }
     };
 }

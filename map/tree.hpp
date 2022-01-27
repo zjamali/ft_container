@@ -31,9 +31,8 @@ namespace ft
         typedef size_t size_type;
         typedef Node<value_type> node;
         typedef Node<value_type> *node_ptr;
-        typedef typename Alloc::template rebind<node>::other                       allocator_type;
-
-        ///typedef typename allocator_type::template rebind<node>::other node_allocator;
+        typedef typename Alloc::template rebind<node>::other allocator_type;
+        typedef ptrdiff_t difference_type;
 
     private:
         node_ptr _root;
@@ -58,16 +57,26 @@ namespace ft
         {
             return (this->_root);
         }
+        node_ptr end()
+        {
+            return (this->_end);
+        }
         void add(value_type const &data)
         {
             node_ptr newNode = createNode(data);
             if (this->_root == nullptr)
             {
+                this->_end = _alloc.allocate(1);
                 this->_root = newNode;
+                this->_end->left = this->_root;
+                this->_root->parent = this->_end;
                 this->_size++;
                 return;
             }
+            this->_root->parent = NULL;
             add(this->_root, newNode);
+            this->_end->left = this->_root;
+            this->_root->parent = this->_end;
         }
         void add(node_ptr root, node_ptr newNode)
         {
@@ -83,9 +92,9 @@ namespace ft
             /// if the key already exist then replace the value
             if (parent->data.first == newNode->data.first)
             {
-               parent->data.second = newNode->data.second;
-               _alloc.deallocate(newNode, 1);
-               return;
+                parent->data.second = newNode->data.second;
+                _alloc.deallocate(newNode, 1);
+                return;
             }
             if (this->_comp(newNode->data, parent->data))
             {
@@ -100,7 +109,6 @@ namespace ft
                 this->_size++;
             }
             updateBalanceFactor(newNode);
-            
         }
 
         void updateBalanceFactor(node_ptr node)
@@ -319,14 +327,15 @@ namespace ft
             }
             this->_alloc.deallocate(node, 1);
         }
+
         void deleteNodethirdCase(node_ptr node)
         {
             node_ptr nodePredecessor = treePredecessor(node);
-            // node->data = nodePredecessor->data;
             int nodePredecessorData = nodePredecessor->data;
             this->deleleNode(nodePredecessorData);
             node->data = nodePredecessorData;
         }
+
         node_ptr treeSuccessor(node_ptr root)
         {
             if (root->right)
@@ -357,13 +366,45 @@ namespace ft
             return (this->find(this->_root, value));
         }
 
+        allocator_type get_alloc() const
+        {
+            return (allocator_type());
+        }
+        size_type size() const
+        {
+            return (_size);
+        }
+        size_type max_size() const
+        {
+            return (std::min(std::numeric_limits<difference_type>::max(), (difference_type)this->_alloc.max_size()));
+        }
+        void swap(tree &x)
+        {
+            size_type tmp_size = x._size;
+            allocator_type tmp_alloc = x._alloc;
+            node_ptr tmp_root = x._root;
+            node_ptr tmp_end = x._end;
+
+            x._size = _size;
+            _size = tmp_size;
+
+            x._alloc = _alloc;
+            _alloc = tmp_alloc;
+
+            x._end = _end;
+            _end = tmp_end;
+
+            x._root = _root;
+            _root = tmp_root;
+        }
+
         void print()
         {
             std::cout << "\n";
             print(this->_root);
             std::cout << "\n";
-            // print2D(this->_root);
-            // std::cout << "\n";
+            print2D(this->_root);
+            std::cout << "\n";
         }
         void print(node_ptr node)
         {

@@ -14,7 +14,7 @@ void printUtils(node_ptr root, int space, int depth, int &size)
 	for (int i = COUNT; i < space; i++) std::cout << " ";
 	std::cout << "bf: " << root->bf << std::endl;
 	for (int i = COUNT; i < space; i++) std::cout << " ";
-	std::cout << "value: " << root->data << std::endl;
+	std::cout << "value: " << root->data.first << std::endl;
 	for (int i = COUNT; i < space; i++) std::cout << " ";
 	std::cout << "node: " << root << std::endl;
 	for (int i = COUNT; i < space; i++) std::cout << " ";
