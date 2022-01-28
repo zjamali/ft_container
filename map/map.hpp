@@ -8,16 +8,17 @@
 #include <cstddef>
 #include "tree.hpp"
 #include "iterator.hpp"
+#include "utills.hpp"
 
 namespace ft
 {
-    template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<std::pair<const Key, T> > >
+    template <class Key, class T, class Compare = std::less<Key>, class Alloc = std::allocator<ft::pair<const Key, T> > >
     class map
     {
     public:
         typedef Key key_type;
         typedef T mapped_type;
-        typedef std::pair<const key_type, mapped_type> value_type;
+        typedef ft::pair<const key_type, mapped_type> value_type;
         typedef Compare key_compare;
         typedef Alloc allocator_type;
         typedef value_type &reference;
@@ -91,14 +92,14 @@ namespace ft
         ~map() {}
 
     public:
-        // std::pair<iterator, bool>
-        bool insert(const value_type &val)
+        ft::pair<iterator, bool> insert(const value_type &val)
         {
             node_ptr node = _tree.search(val);
             if (node != nullptr)
-                return false;
-            _tree.add(val);
-            return true;
+                return (ft::pair<iterator,bool>(iterator(node), false)) ;
+            std::cout << "jdgshjkdhsgj\n";
+            node_ptr inserted_node = _tree.add(val);
+            return (ft::pair<iterator, bool>(iterator(inserted_node),true));
         }
         void print()
         {

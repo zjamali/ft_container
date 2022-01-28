@@ -32,18 +32,18 @@ namespace ft
             return (*this);
         }
 
-        template <class T1, class T2>
-        friend bool operator==(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-        template <class T1, class T2>
-        friend bool operator!=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-        template <class T1, class T2>
-        friend bool operator<(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-        template <class T1, class T2>
-        friend bool operator<=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-        template <class T1, class T2>
-        friend bool operator>(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
-        template <class T1, class T2>
-        friend bool operator>=(const pair<T1, T2> &lhs, const pair<T1, T2> &rhs);
+        template <class _T1, class _T2>
+        friend bool operator==(const pair<_T1, _T2> &lhs, const pair<_T1, _T2> &rhs);
+        template <class _T1, class _T2>
+        friend bool operator!=(const pair<_T1, _T2> &lhs, const pair<_T1, _T2> &rhs);
+        template <class _T1, class _T2>
+        friend bool operator<(const pair<_T1, _T2> &lhs, const pair<_T1, _T2> &rhs);
+        template <class _T1, class _T2>
+        friend bool operator<=(const pair<_T1, _T2> &lhs, const pair<_T1, _T2> &rhs);
+        template <class _T1, class _T2>
+        friend bool operator>(const pair<_T1, _T2> &lhs, const pair<_T1, _T2> &rhs);
+        template <class _T1, class _T2>
+        friend bool operator>=(const pair<_T1, _T2> &lhs, const pair<_T1, _T2> &rhs);
     };
 
     template <class T1, class T2>

@@ -7,6 +7,7 @@
 
 int main()
 {
+    /*
 
     // empty map container
     std::map<int, int> gquiz1;
@@ -55,5 +56,20 @@ int main()
                       << '\n';
         }
         std::cout << std::endl;
+    }
+    */
+    ft::map<char, int> mymap;
+
+    // first insert function version (single parameter):
+    mymap.insert(ft::pair<char, int>('a', 100));
+    mymap.insert(ft::pair<char, int>('z', 200));
+
+    ft::pair<ft::map<char, int>::iterator, bool> ret;
+    ret = mymap.insert(ft::pair<char, int>('z', 500));
+    std::cout << ret.second << "\n";
+    if (ret.second == false)
+    {
+        std::cout << "element 'z' already existed";
+        std::cout << " with a value of " << ret.first->second << '\n';
     }
 }

@@ -61,7 +61,7 @@ namespace ft
         {
             return (this->_end);
         }
-        void add(value_type const &data)
+        node_ptr add(value_type const &data)
         {
             node_ptr newNode = createNode(data);
             if (this->_root == nullptr)
@@ -71,14 +71,15 @@ namespace ft
                 this->_end->left = this->_root;
                 this->_root->parent = this->_end;
                 this->_size++;
-                return;
+                return (this->_root);
             }
             this->_root->parent = NULL;
-            add(this->_root, newNode);
+            node_ptr node = add(this->_root, newNode);
             this->_end->left = this->_root;
             this->_root->parent = this->_end;
+            return (node);
         }
-        void add(node_ptr root, node_ptr newNode)
+        node_ptr add(node_ptr root, node_ptr newNode)
         {
             node_ptr parent = root;
             while (root != nullptr)
@@ -94,7 +95,7 @@ namespace ft
             {
                 parent->data.second = newNode->data.second;
                 _alloc.deallocate(newNode, 1);
-                return;
+                return (parent);
             }
             if (this->_comp(newNode->data, parent->data))
             {
@@ -109,6 +110,7 @@ namespace ft
                 this->_size++;
             }
             updateBalanceFactor(newNode);
+            return (newNode);
         }
 
         void updateBalanceFactor(node_ptr node)
@@ -235,7 +237,8 @@ namespace ft
                 else
                     treeRoot = treeRoot->right;
             }
-            if (node->data == value)
+            /// if the key alreadey exist 
+            if (node->data.first == value.first)
                 return (node);
             return (nullptr);
         }
