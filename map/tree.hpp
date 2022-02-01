@@ -66,7 +66,7 @@ namespace ft
             node_ptr newNode = createNode(data);
             if (this->_root == nullptr)
             {
-                this->_end = _alloc.allocate(1);
+                this->_end = _alloc.allocate(1); // allocate the end node
                 this->_root = newNode;
                 this->_end->left = this->_root;
                 this->_root->parent = this->_end;

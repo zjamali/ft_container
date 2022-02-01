@@ -97,7 +97,6 @@ namespace ft
             node_ptr node = _tree.search(val);
             if (node != nullptr)
                 return (ft::pair<iterator,bool>(iterator(node), false)) ;
-            std::cout << "jdgshjkdhsgj\n";
             node_ptr inserted_node = _tree.add(val);
             return (ft::pair<iterator, bool>(iterator(inserted_node),true));
         }

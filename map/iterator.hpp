@@ -95,6 +95,17 @@ namespace ft
             ++(*this);
             return temp;
         }
+        tree_iterator &operator--()
+        {
+            this->current_node = this->treePredecessor(this->current_node);
+            return (*this);
+        }
+        tree_iterator operator--(int)
+        {
+            tree_iterator temp = *this;
+            --(*this);
+            return temp;
+        }
 
     private:
         node_ptr treeSuccessor(node_ptr root)
@@ -111,10 +122,10 @@ namespace ft
         }
         node_ptr treePredecessor(node_ptr root)
         {
-            if (root->right)
+            if (root->left)
                 return treeMaximun(root->left);
             node_ptr parent = root->parent;
-            while (parent && parent->right == root)
+            while (parent && parent->left == root)
             {
                 root = parent;
                 parent = parent->parent;
@@ -138,6 +149,7 @@ namespace ft
             return (treeRoot);
         }
 
+    public:
         template <class T1, class T2>
         friend bool operator==(const tree_iterator<T1, T2> &x, const tree_iterator<T1, T2> &y);
         template <class T1, class T2>

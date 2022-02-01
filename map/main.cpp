@@ -7,7 +7,6 @@
 
 int main()
 {
-    /*
 
     // empty map container
     std::map<int, int> gquiz1;
@@ -24,11 +23,12 @@ int main()
     std::cout << "\nThe map gquiz1 is : \n";
     std::cout << "\tKEY\tELEMENT\n";
 
-    for (itr = gquiz1.begin(); itr != gquiz1.end(); ++itr)
+    for (itr = gquiz1.end(); itr != gquiz1.begin(); --itr)
     {
         std::cout << '\t' << itr->first << '\t' << itr->second
                   << '\n';
     }
+
     std::cout << std::endl;
 
     {
@@ -37,39 +37,23 @@ int main()
 
         // insert elements in random order
         std::cout << "==========insert \n";
-        o.insert(std::pair<int, int>(1, 40));
-        o.insert(std::pair<int, int>(2, 30));
-        o.insert(std::pair<int, int>(3, 60));
-        o.insert(std::pair<int, int>(4, 20));
-        o.insert(std::pair<int, int>(5, 50));
-        o.insert(std::pair<int, int>(6, 50));
-        o.insert(std::pair<int, int>(7, 10));
-        o.print();
+        o.insert(ft::pair<int, int>(1, 40));
+        o.insert(ft::pair<int, int>(2, 30));
+        o.insert(ft::pair<int, int>(3, 60));
+        o.insert(ft::pair<int, int>(4, 20));
+        o.insert(ft::pair<int, int>(5, 50));
+        o.insert(ft::pair<int, int>(6, 50));
+        o.insert(ft::pair<int, int>(7, 10));
+        // o.print();
 
         ft::map<int, int>::iterator itr;
         std::cout << "\nThe map gquiz1 is : \n";
         std::cout << "\tKEY\tELEMENT\n";
 
-        for (itr = o.begin(); itr != o.end(); ++itr)
+        for (itr = o.end(); itr != o.begin(); --itr)
         {
             std::cout << '\t' << itr->first << '\t' << itr->second
                       << '\n';
         }
-        std::cout << std::endl;
-    }
-    */
-    ft::map<char, int> mymap;
-
-    // first insert function version (single parameter):
-    mymap.insert(ft::pair<char, int>('a', 100));
-    mymap.insert(ft::pair<char, int>('z', 200));
-
-    ft::pair<ft::map<char, int>::iterator, bool> ret;
-    ret = mymap.insert(ft::pair<char, int>('z', 500));
-    std::cout << ret.second << "\n";
-    if (ret.second == false)
-    {
-        std::cout << "element 'z' already existed";
-        std::cout << " with a value of " << ret.first->second << '\n';
     }
 }
