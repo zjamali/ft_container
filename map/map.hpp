@@ -29,14 +29,14 @@ namespace ft
         typedef size_t size_type;
 
     public:
-        // template <class _Key, class _T, class _Compare, class _Alloc>
         class value_compare
-        { // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+        {
             friend class map;
 
         protected:
             Compare comp;
-            value_compare(Compare c) : comp(c) {} // constructed with map's comparison object
+            value_compare(Compare c) : comp(c) {}
+
         public:
             typedef bool result_type;
             typedef value_type first_argument_type;
@@ -52,10 +52,10 @@ namespace ft
         typedef typename ft::Node<value_type> node;
         typedef node *node_ptr;
         typedef tree_iterator<pointer, node_ptr> iterator;
-        typedef tree_iterator<const_pointer , node_ptr> const_iterator;
-        // typedef typename ft::reverse_iterator<iterator> reverse_iterator;
-        // typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
-        // typedef typename iterator_traits<iterator>::difference_type difference_type;
+        typedef tree_iterator<const_pointer, node_ptr> const_iterator;
+        typedef typename ft::reverse_iterator<iterator> reverse_iterator;
+        typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
+        /// typedef typename iterator_traits<iterator>::difference_type difference_type;
 
     private:
         tree _tree;
@@ -94,7 +94,7 @@ namespace ft
             // maust clear the tree
         }
 
-    public:
+    public: /// Modifiers
         ft::pair<iterator, bool> insert(const value_type &val)
         {
             node_ptr node = _tree.search(val);
@@ -124,21 +124,39 @@ namespace ft
             }
         }
 
+    public:
+        //// Iterators
         iterator begin()
         {
             return (iterator(this->_tree.treeMinimum(_tree.base())));
-        }
-        iterator end()
-        {
-            return (iterator(this->_tree.end()));
         }
         const_iterator begin() const
         {
             return (const_iterator(_tree.treeMinimum(_tree.base())));
         }
+        iterator end()
+        {
+            return (iterator(this->_tree.end()));
+        }
         const_iterator end() const
         {
             return (const_iterator(this->_tree.end()));
+        }
+        reverse_iterator rbegin()
+        {
+            return (reverse_iterator(this->end()));
+        }
+        const_reverse_iterator rbegin() const
+        {
+            return (const_reverse_iterator(this->end()));
+        }
+        reverse_iterator rend()
+        {
+            return (reverse_iterator(this->begin()));
+        }
+        const_reverse_iterator rend() const
+        {
+            return (const_reverse_iterator(this->begin()));
         }
         iterator find(const key_type &k)
         {

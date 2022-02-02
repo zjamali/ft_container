@@ -69,56 +69,31 @@ int main()
             }
         }
         */
-    std::map<char, int> first;
+    std::map<char, int> mymap;
 
-    first['a'] = 10;
-    first['b'] = 30;
-    first['c'] = 50;
-    first['d'] = 70;
+    mymap['x'] = 100;
+    mymap['y'] = 200;
+    mymap['z'] = 300;
 
-    std::map<char, int> second(first.begin(), first.end());
+    // show content:
+    std::map<char, int>::reverse_iterator rit;
+    for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
+        std::cout << rit->first << " => " << rit->second << '\n';
 
-    std::map<char, int> third(second);
-
-    std::map<char, int, classcomp> fourth; // class as Compare
-
-    bool (*fn_pt)(char, char) = fncomp;
-    std::map<char, int, bool (*)(char, char)> fifth(fn_pt); // function pointer as Compare
-
-    std::map<char, int>::iterator itr;
-    for (itr = third.begin(); itr != third.end(); ++itr)
-    {
-        std::cout << '\t' << itr->first << '\t' << itr->second
-                  << '\n';
-    }
     std::cout << "\n\n\n";
-
     {
-        ft::map<char, int> first;
 
-        //first['a'] = 10;
-        //first['b'] = 30;
-        //first['c'] = 50;
-        //first['d'] = 70;
-        first.insert(ft::pair<char, int>('a',10));
-        first.insert(ft::pair<char, int>('b',30));
-        first.insert(ft::pair<char, int>('c',50));
-        first.insert(ft::pair<char, int>('d',70));
-        ft::map<char, int> second(first.begin(), first.end());
+        ft::map<char, int> mymap;
 
-        ft::map<char, int> third(second);
+        mymap.insert(ft::pair<char,int>('x',100));
+        mymap.insert(ft::pair<char,int>('y',200));
+        mymap.insert(ft::pair<char,int>('z',300));
 
-        ft::map<char, int, classcomp> fourth; // class as Compare
-
-        bool (*fn_pt)(char, char) = fncomp;
-        ft::map<char, int, bool (*)(char, char)> fifth(fn_pt); // function pointer as Compare
-
-        ft::map<char, int>::iterator itr;
-        for (itr = third.begin(); itr != third.end(); ++itr)
-        {
-            std::cout << '\t' << itr->first << '\t' << itr->second
-                      << '\n';
-        }
+        // show content:
+        ft::map<char, int>::reverse_iterator rit;
+        for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
+            std::cout << rit->first << " => " << rit->second << '\n';
     }
+
     return 0;
 }
