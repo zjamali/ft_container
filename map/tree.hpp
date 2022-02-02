@@ -43,7 +43,10 @@ namespace ft
 
     public:
         tree(const key_compare &compare = key_compare(), const allocator_type &alloc = allocator_type())
-            : _root(nullptr), _alloc(alloc), _comp(compare), _size(0) {}
+            : _root(nullptr), _alloc(alloc), _comp(compare), _size(0)
+        {
+            this->_end = _alloc.allocate(1); // allocate the end node
+        }
         ~tree(){};
 
         node_ptr createNode(value_type const &data)
@@ -66,7 +69,6 @@ namespace ft
             node_ptr newNode = createNode(data);
             if (this->_root == nullptr)
             {
-                this->_end = _alloc.allocate(1); // allocate the end node
                 this->_root = newNode;
                 this->_end->left = this->_root;
                 this->_root->parent = this->_end;
@@ -207,6 +209,8 @@ namespace ft
 
         node_ptr treeMinimum(node_ptr treeRoot)
         {
+            if (treeRoot == NULL)
+                return (this->_end);
             while (treeRoot->left != NULL)
             {
                 treeRoot = treeRoot->left;
@@ -230,14 +234,15 @@ namespace ft
             while (treeRoot != nullptr)
             {
                 node = treeRoot;
-                if (treeRoot->data.second == value.second)
+                //if (treeRoot->data.second == value.second)
+                if (treeRoot->data.first == value.first)
                     break;
                 if (this->_comp(value, treeRoot->data))
                     treeRoot = treeRoot->left;
                 else
                     treeRoot = treeRoot->right;
             }
-            /// if the key alreadey exist 
+            /// if the key alreadey exist
             if (node->data.first == value.first)
                 return (node);
             return (nullptr);

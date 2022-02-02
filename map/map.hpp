@@ -96,17 +96,31 @@ namespace ft
         {
             node_ptr node = _tree.search(val);
             if (node != nullptr)
-                return (ft::pair<iterator,bool>(iterator(node), false)) ;
+                return (ft::pair<iterator, bool>(iterator(node), false));
             node_ptr inserted_node = _tree.add(val);
-            return (ft::pair<iterator, bool>(iterator(inserted_node),true));
-        }
-        void print()
-        {
-            if (this->_tree.base() != NULL)
-                _tree.print();
+            return (ft::pair<iterator, bool>(iterator(inserted_node), true));
         }
 
-    public:
+        iterator insert(iterator position, const value_type &val)
+        {
+            node_ptr node = _tree.search(val);
+            if (node != nullptr)
+                return (iterator(node));
+            (void)position;
+            node_ptr n = this->_tree.add(val);
+            return (iterator(n));
+        }
+
+        template <class InputIterator>
+        void insert(InputIterator first, InputIterator last)
+        {
+            while (first != last)
+            {
+                _tree.add(*first);
+                first++;
+            }
+        }
+
         iterator begin()
         {
             return (iterator(this->_tree.treeMinimum(this->_tree.base())));
@@ -115,7 +129,22 @@ namespace ft
         {
             return (iterator(this->_tree.end()));
         }
+        iterator find(const key_type &k)
+        {
+            node_ptr node = this->_tree.search(ft::make_pair(k, mapped_type()));
+            if (node == NULL)
+                return (this->end());
+            return (iterator(node));
+        }
+
+    public: //////////////////////////////////////////////////
+        void print()
+        {
+            if (this->_tree.base() != NULL)
+                _tree.print();
+        }
     };
+
 }
 
 #endif
