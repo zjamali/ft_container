@@ -56,11 +56,11 @@ namespace ft
             this->_alloc.construct(newNode, data);
             return (newNode);
         }
-        node_ptr base()
+        node_ptr base() const
         {
             return (this->_root);
         }
-        node_ptr end()
+        node_ptr end() const
         {
             return (this->_end);
         }
@@ -207,7 +207,7 @@ namespace ft
             }
         }
 
-        node_ptr treeMinimum(node_ptr treeRoot)
+        node_ptr treeMinimum(node_ptr treeRoot) const
         {
             if (treeRoot == NULL)
                 return (this->_end);
@@ -217,7 +217,7 @@ namespace ft
             }
             return (treeRoot);
         }
-        node_ptr treeMaximun(node_ptr treeRoot)
+        node_ptr treeMaximun(node_ptr treeRoot) const
         {
             while (treeRoot->right != NULL)
             {

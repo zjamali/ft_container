@@ -52,7 +52,7 @@ namespace ft
         typedef typename ft::Node<value_type> node;
         typedef node *node_ptr;
         typedef tree_iterator<pointer, node_ptr> iterator;
-        // typedef tree_iterator<const_pointer , node_ptr> const_iterator;
+        typedef tree_iterator<const_pointer , node_ptr> const_iterator;
         // typedef typename ft::reverse_iterator<iterator> reverse_iterator;
         // typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
         // typedef typename iterator_traits<iterator>::difference_type difference_type;
@@ -68,12 +68,14 @@ namespace ft
         {
         }
         /// range
-        // template <class InputIterator>
-        // map(InputIterator first, InputIterator last,
-        //     const key_compare &comp = key_compare(),
-        //     const allocator_type &alloc = allocator_type());
-        // // copy
-        map(const map &x) : _tree(value_compare(x.comp), x._alloc), _alloc(x._alloc), _compare(x._compare)
+        template <class InputIterator>
+        map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type())
+            : _tree(value_compare(comp), alloc), _alloc(alloc), _compare(comp)
+        {
+            this->insert(first, last);
+        }
+        ////// copy
+        map(const map &x) : _tree(value_compare(x._compare), x._alloc), _alloc(x._alloc), _compare(x._compare)
         {
             *this = x;
         }
@@ -82,14 +84,15 @@ namespace ft
         {
             if (this != &obj)
             {
-                this->_alloc = obj._alloc;
-                this->_compare = obj._compare;
-                // copy tree ----->
+                insert(obj.begin(), obj.end());
             }
             return (*this);
         }
 
-        ~map() {}
+        ~map()
+        {
+            // maust clear the tree
+        }
 
     public:
         ft::pair<iterator, bool> insert(const value_type &val)
@@ -123,11 +126,19 @@ namespace ft
 
         iterator begin()
         {
-            return (iterator(this->_tree.treeMinimum(this->_tree.base())));
+            return (iterator(this->_tree.treeMinimum(_tree.base())));
         }
         iterator end()
         {
             return (iterator(this->_tree.end()));
+        }
+        const_iterator begin() const
+        {
+            return (const_iterator(_tree.treeMinimum(_tree.base())));
+        }
+        const_iterator end() const
+        {
+            return (const_iterator(this->_tree.end()));
         }
         iterator find(const key_type &k)
         {
