@@ -158,6 +158,25 @@ namespace ft
         {
             return (const_reverse_iterator(this->begin()));
         }
+
+    public: // Capacity:
+        bool empty() const
+        {
+            if (this->_tree.size() == 0)
+                return (true);
+            return (false);
+        }
+        size_type size() const
+        {
+            return (this->_tree.size());
+        }
+        size_type max_size() const
+        {
+            return (std::min(std::numeric_limits<difference_type>::max(),
+                             (difference_type)this->_alloc.max_size()));
+        }
+
+    public: /// Operations:
         iterator find(const key_type &k)
         {
             node_ptr node = this->_tree.search(ft::make_pair(k, mapped_type()));

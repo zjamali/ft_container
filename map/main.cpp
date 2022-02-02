@@ -69,31 +69,29 @@ int main()
             }
         }
         */
-    std::map<char, int> mymap;
+    int i;
+    std::map<int, int> mymap;
 
-    mymap['x'] = 100;
-    mymap['y'] = 200;
-    mymap['z'] = 300;
-
-    // show content:
-    std::map<char, int>::reverse_iterator rit;
-    for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
-        std::cout << rit->first << " => " << rit->second << '\n';
-
-    std::cout << "\n\n\n";
+    if (mymap.max_size() > 1000)
     {
-
-        ft::map<char, int> mymap;
-
-        mymap.insert(ft::pair<char,int>('x',100));
-        mymap.insert(ft::pair<char,int>('y',200));
-        mymap.insert(ft::pair<char,int>('z',300));
-
-        // show content:
-        ft::map<char, int>::reverse_iterator rit;
-        for (rit = mymap.rbegin(); rit != mymap.rend(); ++rit)
-            std::cout << rit->first << " => " << rit->second << '\n';
+        for (i = 0; i < 1000; i++)
+            mymap[i] = 0;
+        std::cout << "The map contains 1000 elements.\n";
     }
+    else
+        std::cout << "The map could not hold 1000 elements.\n";
+    {
+        int i;
+        ft::map<int, int> mymap;
 
+        if (mymap.max_size() > 1000)
+        {
+            for (i = 0; i < 1000; i++)
+                mymap.insert(ft::make_pair(i,0));
+            std::cout << "The map contains 1000 elements.\n";
+        }
+        else
+            std::cout << "The map could not hold 1000 elements.\n";
+    }
     return 0;
 }
