@@ -234,7 +234,7 @@ namespace ft
             while (treeRoot != nullptr)
             {
                 node = treeRoot;
-                //if (treeRoot->data.second == value.second)
+                // if (treeRoot->data.second == value.second)
                 if (treeRoot->data.first == value.first)
                     break;
                 if (this->_comp(value, treeRoot->data))
@@ -250,6 +250,9 @@ namespace ft
 
         void updateBalanceFactorAfterDelete(node_ptr node, int rightLeft)
         {
+            ///make root parent NULL to don't balance end node  
+            this->_root->parent = NULL;
+            
             if (!node)
                 return;
             if (node != nullptr)
@@ -274,10 +277,11 @@ namespace ft
                         updateBalanceFactorAfterDelete(node->parent, LEFT);
                 }
             }
+            this->_root->parent = this->_end;
         }
-        void deleleNode(int value)
+        void deleleNode(value_type val)
         {
-            node_ptr node = find(this->_root, value);
+            node_ptr node = find(this->_root, val);
 
             if (!node) // node not found
                 return;
@@ -305,6 +309,7 @@ namespace ft
                 this->_alloc.deallocate(node, 1);
                 updateBalanceFactorAfterDelete(parent, RIGHT);
             }
+            this->_size--;
         }
         void deleteNodeSecondCase(node_ptr node)
         {
@@ -334,14 +339,29 @@ namespace ft
                 }
             }
             this->_alloc.deallocate(node, 1);
+            this->_size--;
         }
 
         void deleteNodethirdCase(node_ptr node)
         {
             node_ptr nodePredecessor = treePredecessor(node);
-            int nodePredecessorData = nodePredecessor->data;
+            value_type nodePredecessorData = nodePredecessor->data;
             this->deleleNode(nodePredecessorData);
-            node->data = nodePredecessorData;
+            // node->data = nodePredecessorData;
+
+            /*
+             * save node parent ,childrens and balance factore before construction
+             * construction set above to null
+             */
+            node_ptr parent = node->parent;
+            node_ptr right = node->right;
+            node_ptr left = node->left;
+            int bf = node->bf;
+            this->_alloc.construct(node, nodePredecessorData);
+            node->bf = bf;
+            node->left = left;
+            node->right = right;
+            node->parent = parent;
         }
 
         node_ptr treeSuccessor(node_ptr root)

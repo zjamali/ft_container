@@ -71,7 +71,7 @@ namespace ft
         template <class T1, class node_ptr1>
         tree_iterator(const tree_iterator<T1, node_ptr1> &it) : current_node(it.base()) {}
 
-        node_ptr base()
+        node_ptr base() const
         {
             return (current_node);
         }

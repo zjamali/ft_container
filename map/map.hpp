@@ -94,36 +94,6 @@ namespace ft
             // maust clear the tree
         }
 
-    public: /// Modifiers
-        ft::pair<iterator, bool> insert(const value_type &val)
-        {
-            node_ptr node = _tree.search(val);
-            if (node != nullptr)
-                return (ft::pair<iterator, bool>(iterator(node), false));
-            node_ptr inserted_node = _tree.add(val);
-            return (ft::pair<iterator, bool>(iterator(inserted_node), true));
-        }
-
-        iterator insert(iterator position, const value_type &val)
-        {
-            node_ptr node = _tree.search(val);
-            if (node != nullptr)
-                return (iterator(node));
-            (void)position;
-            node_ptr n = this->_tree.add(val);
-            return (iterator(n));
-        }
-
-        template <class InputIterator>
-        void insert(InputIterator first, InputIterator last)
-        {
-            while (first != last)
-            {
-                _tree.add(*first);
-                first++;
-            }
-        }
-
     public:
         //// Iterators
         iterator begin()
@@ -183,6 +153,61 @@ namespace ft
             if (node == NULL)
                 return (this->end());
             return (iterator(node));
+        }
+
+    public: /// Modifiers
+        ft::pair<iterator, bool> insert(const value_type &val)
+        {
+            node_ptr node = _tree.search(val);
+            if (node != nullptr)
+                return (ft::pair<iterator, bool>(iterator(node), false));
+            node_ptr inserted_node = _tree.add(val);
+            return (ft::pair<iterator, bool>(iterator(inserted_node), true));
+        }
+
+        iterator insert(iterator position, const value_type &val)
+        {
+            node_ptr node = _tree.search(val);
+            if (node != nullptr)
+                return (iterator(node));
+            (void)position;
+            node_ptr n = this->_tree.add(val);
+            return (iterator(n));
+        }
+
+        template <class InputIterator>
+        void insert(InputIterator first, InputIterator last)
+        {
+            while (first != last)
+            {
+                _tree.add(*first);
+                first++;
+            }
+        }
+
+        void erase(iterator position)
+        {
+            this->_tree.deleleNode(ft::make_pair(position->first, position->second));
+        }
+        size_type erase(const key_type &k)
+        {
+            node_ptr node = this->_tree.search(ft::make_pair(k, mapped_type()));
+            if (node)
+            {
+                this->_tree.deleleNode(ft::make_pair(k, mapped_type()));
+                return (1);
+            }
+            return (0);
+        }
+        void erase(iterator first, iterator last)
+        {
+            iterator position;
+            while (first != last)
+            {
+                position = first;
+                first++;
+                this->erase(position);
+            }
         }
 
     public: //////////////////////////////////////////////////

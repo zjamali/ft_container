@@ -69,29 +69,85 @@ int main()
             }
         }
         */
-    int i;
-    std::map<int, int> mymap;
+    std::map<char, int> mymap;
+    std::map<char, int>::iterator it;
 
-    if (mymap.max_size() > 1000)
-    {
-        for (i = 0; i < 1000; i++)
-            mymap[i] = 0;
-        std::cout << "The map contains 1000 elements.\n";
-    }
-    else
-        std::cout << "The map could not hold 1000 elements.\n";
-    {
-        int i;
-        ft::map<int, int> mymap;
+    // insert some values:
+    mymap['a'] = 10;
+    mymap['b'] = 20;
+    mymap['c'] = 30;
+    mymap['d'] = 40;
+    mymap['e'] = 50;
+    mymap['f'] = 60;
 
-        if (mymap.max_size() > 1000)
-        {
-            for (i = 0; i < 1000; i++)
-                mymap.insert(ft::make_pair(i,0));
-            std::cout << "The map contains 1000 elements.\n";
-        }
-        else
-            std::cout << "The map could not hold 1000 elements.\n";
+    std::cout << "before erase \n";
+    for (it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
+    it = mymap.find('b');
+    std::cout << " erase b using position iterator \n";
+    mymap.erase(it); // erasing by iterator
+    for (it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
+    std::cout << " erase c using key  \n";
+    mymap.erase('c'); // erasing by key
+    for (it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
+    it = mymap.find('e');
+    std::cout << " erase e to the end using rande erase  \n";
+    mymap.erase(it, mymap.end()); // erasing by range
+    for (it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
+    // show content:
+    std::cout << "after earse\n";
+    for (it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
+
+    std::cout << "\n\n\n\n";
+    {
+
+        ft::map<char, int> mymap;
+        ft::map<char, int>::iterator it;
+
+        // insert some values:
+        mymap.insert(ft::make_pair('a', 10));
+        mymap.insert(ft::make_pair('b', 20));
+        mymap.insert(ft::make_pair('c', 30));
+        mymap.insert(ft::make_pair('d', 40));
+        mymap.insert(ft::make_pair('e', 50));
+        mymap.insert(ft::make_pair('f', 60));
+
+        std::cout << "before erase \n";
+        for (it = mymap.begin(); it != mymap.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
+
+        it = mymap.find('b');
+        std::cout << " erase b using position iterator \n";
+        mymap.erase(it); // erasing by iterator
+        for (it = mymap.begin(); it != mymap.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
+
+        std::cout << " erase c using key  \n";
+        mymap.erase('c'); // erasing by key
+        for (it = mymap.begin(); it != mymap.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
+
+        std::cout << "//////////////////////////////\n";
+        mymap.print();
+        std::cout << "/////////////////////////////////\n";
+        it = mymap.find('e');
+        std::cout << " erase e to the end using rande erase  \n";
+        mymap.erase(it, mymap.end()); // erasing by range
+        for (it = mymap.begin(); it != mymap.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
+
+        // show content:
+        std::cout << "after earse\n";
+        for (it = mymap.begin(); it != mymap.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
     }
     return 0;
 }
