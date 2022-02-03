@@ -154,6 +154,13 @@ namespace ft
                 return (this->end());
             return (iterator(node));
         }
+        const_iterator find(const key_type &k) const
+        {
+            node_ptr node = this->_tree.search(ft::make_pair(k, mapped_type()));
+            if (node == NULL)
+                return (this->end());
+            return (const_iterator(node));
+        }
 
     public: /// Modifiers
         ft::pair<iterator, bool> insert(const value_type &val)
