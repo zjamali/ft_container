@@ -70,6 +70,8 @@ namespace ft
             if (this->_root == nullptr)
             {
                 this->_root = newNode;
+                if (this->_end == NULL)
+                    this->_end = _alloc.allocate(1);
                 this->_end->left = this->_root;
                 this->_root->parent = this->_end;
                 this->_size++;
@@ -250,9 +252,9 @@ namespace ft
 
         void updateBalanceFactorAfterDelete(node_ptr node, int rightLeft)
         {
-            ///make root parent NULL to don't balance end node  
+            /// make root parent NULL to don't balance end node
             this->_root->parent = NULL;
-            
+
             if (!node)
                 return;
             if (node != nullptr)
@@ -424,6 +426,29 @@ namespace ft
 
             x._root = _root;
             _root = tmp_root;
+        }
+
+        void clear()
+        {
+            if (this->_root)
+            {
+                clear(this->_root);
+                this->_root = NULL;
+                this->_alloc.deallocate(this->_end, 1);
+                this->_end = NULL;
+            }
+        }
+        void clear(node_ptr node)
+        {
+            if (!node)
+                return;
+            if (node->left)
+                clear(node->left);
+            if (node->right)
+                clear(node->right);
+            this->_alloc.deallocate(node, 1);
+            node = NULL;
+            //node->data.second = 1000000;
         }
 
         void print()

@@ -7,43 +7,47 @@
 
 int main()
 {
-    std::map<char, int> foo, bar;
+    std::map<char, int> mymap;
 
-    foo['x'] = 100;
-    foo['y'] = 200;
+    mymap['x'] = 100;
+    mymap['y'] = 200;
+    mymap['z'] = 300;
 
-    bar['a'] = 11;
-    bar['b'] = 22;
-    bar['c'] = 33;
-
-    foo.swap(bar);
-
-    std::cout << "foo contains:\n";
-    for (std::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
+    std::cout << "mymap contains:\n";
+    for (std::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
         std::cout << it->first << " => " << it->second << '\n';
 
-    std::cout << "bar contains:\n";
-    for (std::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
+    mymap.clear();
+    mymap['a'] = 1101;
+    mymap['b'] = 2202;
+
+    std::cout << "mymap contains:\n";
+    for (std::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
         std::cout << it->first << " => " << it->second << '\n';
     std::cout << "\n\n\n";
     {
-        ft::map<char, int> foo, bar;
+        ft::map<char, int> mymap;
 
-        foo.insert(ft::make_pair('x', 100));
-        foo.insert(ft::make_pair('y', 200));
+        mymap.insert(ft::make_pair('x', 100));
+        mymap.insert(ft::make_pair('y', 200));
+        mymap.insert(ft::make_pair('z', 300));
 
-        bar.insert(ft::make_pair('a', 11));
-        bar.insert(ft::make_pair('b', 22));
-        bar.insert(ft::make_pair('c', 33));
-
-        foo.swap(bar);
-
-        std::cout << "foo contains:\n";
-        for (ft::map<char, int>::iterator it = foo.begin(); it != foo.end(); ++it)
+        std::cout << "mymap contains:\n";
+        for (ft::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
             std::cout << it->first << " => " << it->second << '\n';
+        mymap.print();
+        std::cout << "begin clear\n";
+        mymap.clear();
+        std::cout << "after clear\n";
 
-        std::cout << "bar contains:\n";
-        for (ft::map<char, int>::iterator it = bar.begin(); it != bar.end(); ++it)
+        mymap.print();
+        std::cout << "after print\n";
+        mymap.insert(ft::make_pair('a', 1101));
+        mymap.insert(ft::make_pair('b', 2202));
+
+        mymap.print();
+        std::cout << "mymap contains:\n";
+        for (ft::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
             std::cout << it->first << " => " << it->second << '\n';
     }
     return 0;

@@ -152,6 +152,7 @@ namespace ft
             node_ptr node = _tree.search(val);
             if (node != nullptr)
                 return (ft::pair<iterator, bool>(iterator(node), false));
+            
             node_ptr inserted_node = _tree.add(val);
             return (ft::pair<iterator, bool>(iterator(inserted_node), true));
         }
@@ -204,6 +205,11 @@ namespace ft
         void swap (map& x)
         {
             this->_tree.swap(x._tree);
+        }
+
+        void clear()
+        {
+            this->_tree.clear();
         }
 
     public: /// Operations:
