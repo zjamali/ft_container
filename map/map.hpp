@@ -211,6 +211,11 @@ namespace ft
         {
             this->_tree.clear();
         }
+    public: // Observers:
+        key_compare key_comp() const
+        {
+            return (_compare);
+        }
 
     public: /// Operations:
         iterator find(const key_type &k)
