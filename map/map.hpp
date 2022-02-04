@@ -237,6 +237,11 @@ namespace ft
             return (const_iterator(node));
         }
 
+        size_type count (const key_type& k) const
+        {
+            return (this->find(k) != this->end()? 1:0);
+        }
+
     public: //////////////////////////////////////////////////
         void print()
         {

@@ -228,7 +228,7 @@ namespace ft
             return (treeRoot);
         }
 
-        node_ptr find(node_ptr treeRoot, value_type value)
+        node_ptr find(node_ptr treeRoot, value_type value) const
         {
             node_ptr node = nullptr;
             if (treeRoot == NULL)
@@ -391,7 +391,7 @@ namespace ft
             return (parent);
         }
 
-        node_ptr search(value_type value)
+        node_ptr search(value_type value) const 
         {
             return (this->find(this->_root, value));
         }
