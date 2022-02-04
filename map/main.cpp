@@ -7,39 +7,32 @@
 
 int main()
 {
-    std::map<char, int> mymap;
-    char c;
+    std::map<char, std::string> mymap;
 
-    mymap['a'] = 101;
-    mymap['c'] = 202;
-    mymap['f'] = 303;
+    mymap['a'] = "an element";
+    mymap['b'] = "another element";
+    mymap['c'] = mymap['b'];
 
-    for (c = 'a'; c < 'h'; c++)
-    {
-        std::cout << c;
-        if (mymap.count(c) > 0)
-            std::cout << " is an element of mymap.\n";
-        else
-            std::cout << " is not an element of mymap.\n";
-    }
+    std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+    std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+    std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+    std::cout << "mymap['d'] is " << mymap['d'] << '\n';
 
+    std::cout << "mymap now contains " << mymap.size() << " elements.\n";
     std::cout << "\n\n\n\n";
     {
-        ft::map<char, int> mymap;
-        char c;
+        ft::map<char, std::string> mymap;
 
-        mymap.insert(ft::make_pair('a', 101));
-        mymap.insert(ft::make_pair('c', 202));
-        mymap.insert(ft::make_pair('f', 303));
+        mymap['a'] = "an element";
+        mymap['b'] = "another element";
+        mymap['c'] = mymap['b'];
 
-        for (c = 'a'; c < 'h'; c++)
-        {
-            std::cout << c;
-            if (mymap.count(c) > 0)
-                std::cout << " is an element of mymap.\n";
-            else
-                std::cout << " is not an element of mymap.\n";
-        }
+        std::cout << "mymap['a'] is " << mymap['a'] << '\n';
+        std::cout << "mymap['b'] is " << mymap['b'] << '\n';
+        std::cout << "mymap['c'] is " << mymap['c'] << '\n';
+        std::cout << "mymap['d'] is " << mymap['d'] << '\n';
+
+        std::cout << "mymap now contains " << mymap.size() << " elements.\n";
     }
     return 0;
 }

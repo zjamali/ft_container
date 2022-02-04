@@ -129,6 +129,12 @@ namespace ft
             return (const_reverse_iterator(this->begin()));
         }
 
+    public: // Element access:
+        mapped_type &operator[](const key_type &k)
+        {
+            return (insert(ft::make_pair(k,mapped_type())).first->second);
+        }
+
     public: // Capacity:
         bool empty() const
         {
@@ -152,7 +158,7 @@ namespace ft
             node_ptr node = _tree.search(val);
             if (node != nullptr)
                 return (ft::pair<iterator, bool>(iterator(node), false));
-            
+
             node_ptr inserted_node = _tree.add(val);
             return (ft::pair<iterator, bool>(iterator(inserted_node), true));
         }
@@ -202,7 +208,7 @@ namespace ft
             }
         }
 
-        void swap (map& x)
+        void swap(map &x)
         {
             this->_tree.swap(x._tree);
         }
@@ -211,6 +217,7 @@ namespace ft
         {
             this->_tree.clear();
         }
+
     public: // Observers:
         key_compare key_comp() const
         {
@@ -237,9 +244,9 @@ namespace ft
             return (const_iterator(node));
         }
 
-        size_type count (const key_type& k) const
+        size_type count(const key_type &k) const
         {
-            return (this->find(k) != this->end()? 1:0);
+            return (this->find(k) != this->end() ? 1 : 0);
         }
 
     public: //////////////////////////////////////////////////
