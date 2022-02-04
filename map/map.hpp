@@ -216,6 +216,10 @@ namespace ft
         {
             return (_compare);
         }
+        value_compare value_comp() const
+        {
+            return value_compare(_compare);
+        }
 
     public: /// Operations:
         iterator find(const key_type &k)
