@@ -7,7 +7,7 @@
 #include <functional>
 #include <cstddef>
 #include "tree.hpp"
-#include "iterator.hpp"
+#include "./iterator.hpp"
 #include "utills.hpp"
 
 namespace ft
@@ -266,7 +266,7 @@ namespace ft
         {
             return (const_iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type()))));
         }
-        
+
         pair<const_iterator, const_iterator> equal_range(const key_type &k) const
         {
             return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
@@ -276,7 +276,10 @@ namespace ft
             return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
         }
         
-
+        allocator_type get_allocator() const
+        {
+            return(this->_alloc);
+        }
     public: //////////////////////////////////////////////////
         void print()
         {

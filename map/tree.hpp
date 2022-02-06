@@ -437,6 +437,7 @@ namespace ft
                 this->_alloc.deallocate(this->_end, 1);
                 this->_end = NULL;
             }
+            this->_size = 0;
         }
         void clear(node_ptr node)
         {
