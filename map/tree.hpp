@@ -456,7 +456,6 @@ namespace ft
 
             while (!this->_comp(val, node->data))
             {
-                std::cout << "val less then node :" << val.first << "  " << node->data.first << "\n";
                 if (val.first == node->data.first)
                     break;
                 node = this->treeSuccessor(node);
@@ -474,7 +473,6 @@ namespace ft
 
             while (!this->_comp(val, node->data))
             {
-                std::cout << "val less then node :" << val.first << "  " << node->data.first << "\n";
                 node = this->treeSuccessor(node);
                 if (node == NULL)
                 {
@@ -500,7 +498,6 @@ namespace ft
 
             print(node->left);
             std::cout << " -> " << node->data.second << " {" << node->bf << "}   ";
-
             print(node->right);
         }
     };
