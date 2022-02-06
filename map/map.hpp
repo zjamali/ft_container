@@ -132,7 +132,7 @@ namespace ft
     public: // Element access:
         mapped_type &operator[](const key_type &k)
         {
-            return (insert(ft::make_pair(k,mapped_type())).first->second);
+            return (insert(ft::make_pair(k, mapped_type())).first->second);
         }
 
     public: // Capacity:
@@ -247,6 +247,24 @@ namespace ft
         size_type count(const key_type &k) const
         {
             return (this->find(k) != this->end() ? 1 : 0);
+        }
+
+        iterator lower_bound(const key_type &k)
+        {
+            return (iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type()))));
+        }
+        const_iterator lower_bound(const key_type &k) const
+        {
+            return (const_iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type()))));
+        }
+    
+        iterator upper_bound(const key_type &k)
+        {
+            return (iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type()))));
+        }
+        const_iterator upper_bound(const key_type &k) const
+        {
+            return (const_iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type()))));
         }
 
     public: //////////////////////////////////////////////////

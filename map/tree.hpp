@@ -366,7 +366,7 @@ namespace ft
             node->parent = parent;
         }
 
-        node_ptr treeSuccessor(node_ptr root)
+        node_ptr treeSuccessor(node_ptr root) const
         {
             if (root->right)
                 return treeMinimum(root->right);
@@ -391,7 +391,7 @@ namespace ft
             return (parent);
         }
 
-        node_ptr search(value_type value) const 
+        node_ptr search(value_type value) const
         {
             return (this->find(this->_root, value));
         }
@@ -448,8 +448,42 @@ namespace ft
                 clear(node->right);
             this->_alloc.deallocate(node, 1);
             node = NULL;
-            //node->data.second = 1000000;
         }
+
+        node_ptr lower_bound(value_type val) const
+        {
+            node_ptr node = this->treeMinimum(this->_root);
+
+            while (!this->_comp(val, node->data))
+            {
+                std::cout << "val less then node :" << val.first << "  " << node->data.first << "\n";
+                if (val.first == node->data.first)
+                    break;
+                node = this->treeSuccessor(node);
+                if (node == NULL)
+                {
+                    return (this->_end);
+                }
+            }
+            return (node);
+        }
+
+        node_ptr upper_bound(value_type val) const
+        {
+            node_ptr node = this->treeMinimum(this->_root);
+
+            while (!this->_comp(val, node->data))
+            {
+                std::cout << "val less then node :" << val.first << "  " << node->data.first << "\n";
+                node = this->treeSuccessor(node);
+                if (node == NULL)
+                {
+                    return (this->_end);
+                }
+            }
+            return (node);
+        }
+        
 
         void print()
         {
