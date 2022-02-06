@@ -8,58 +8,44 @@
 int main()
 {
 
-    // initialize container
-    std::map<int, int> mp;
+    std::map<char, int> mymap;
+    std::map<char, int>::iterator itlow, itup;
 
-    // insert elements in random order
-    mp.insert(std::make_pair(12, 30));
-    mp.insert(std::make_pair(11, 10));
-    mp.insert(std::make_pair(15, 50));
-    mp.insert(std::make_pair(14, 40));
+    mymap['a'] = 20;
+    mymap['b'] = 40;
+    mymap['c'] = 60;
+    mymap['d'] = 80;
+    mymap['e'] = 100;
 
-    // when 11 is present
-    std::map<int, int>::iterator it = mp.upper_bound(11);
-    std::cout << "The upper bound of key 11 is ";
-    std::cout << (*it).first << " " << (*it).second << std::endl;
+    itlow = mymap.lower_bound('b'); // itlow points to b
+    itup = mymap.upper_bound('d');  // itup points to e (not d!)
 
-    // when 13 is not present
-    it = mp.upper_bound(13);
-    std::cout << "The upper bound of key 13 is ";
-    std::cout << (*it).first << " " << (*it).second << std::endl;
+    mymap.erase(itlow, itup); // erases [itlow,itup)
 
-    // when 17 is exceeds the maximum key, so size
-    // of mp is returned as key and value as 0.
-    it = mp.upper_bound(17);
-    std::cout << "The upper bound of key 17 is ";
-    std::cout << (*it).first << " " << (*it).second;
+    // print content:
+    for (std::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+        std::cout << it->first << " => " << it->second << '\n';
 
     std::cout << "\n\n\n\n";
     {
 
-        // initialize container
-        ft::map<int, int> mp;
+        ft::map<char, int> mymap;
+        ft::map<char, int>::iterator itlow, itup;
 
-        // insert elements in random order
-        mp.insert(ft::make_pair(12, 30));
-        mp.insert(ft::make_pair(11, 10));
-        mp.insert(ft::make_pair(15, 50));
-        mp.insert(ft::make_pair(14, 40));
+        mymap['a'] = 20;
+        mymap['b'] = 40;
+        mymap['c'] = 60;
+        mymap['d'] = 80;
+        mymap['e'] = 100;
 
-        // when 11 is present
-        ft::map<int, int>::iterator it = mp.upper_bound(11);
-        std::cout << "The upper bound of key 11 is ";
-        std::cout << (*it).first << " " << (*it).second << std::endl;
+        itlow = mymap.lower_bound('b'); // itlow points to b
+        itup = mymap.upper_bound('d');  // itup points to e (not d!)
 
-        // when 13 is not present
-        it = mp.upper_bound(13);
-        std::cout << "The upper bound of key 13 is ";
-        std::cout << (*it).first << " " << (*it).second << std::endl;
+        mymap.erase(itlow, itup); // erases [itlow,itup)
 
-        // when 17 is exceeds the maximum key, so size
-        // of mp is returned as key and value as 0.
-        it = mp.upper_bound(17);
-        std::cout << "The upper bound of key 17 is ";
-        std::cout << (*it).first << " " << (*it).second;
+        // print content:
+        for (ft::map<char, int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
+            std::cout << it->first << " => " << it->second << '\n';
     }
     return 0;
 }

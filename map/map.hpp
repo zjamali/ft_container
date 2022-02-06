@@ -266,6 +266,16 @@ namespace ft
         {
             return (const_iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type()))));
         }
+        
+        pair<const_iterator, const_iterator> equal_range(const key_type &k) const
+        {
+            return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
+        }
+        pair<iterator, iterator> equal_range(const key_type &k)
+        {
+            return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
+        }
+        
 
     public: //////////////////////////////////////////////////
         void print()
