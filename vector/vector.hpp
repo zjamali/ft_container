@@ -78,11 +78,9 @@ namespace ft
         }
         ~vector()
         {
-            for (size_type i = 0; i < this->_size; i++)
+            for (size_type i = 0 ; i < this->_size  ; i++)
             {
-                std::cout << "i  =  " << i << "\n";
                 this->_alloc.destroy(&_rawData[i]);
-                std::cout << "i  =  " << i << "\n";
             }
             this->_alloc.deallocate(this->_rawData, this->_capacity);
         };
@@ -323,7 +321,6 @@ namespace ft
             difference_type lastPosIndex = firstPosIndex + last - first - 1;
             difference_type ranglen = last - first;
             this->my_reserve(this->_size + ranglen);
-
             for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
                 this->insert(this->begin() + i, *first);
