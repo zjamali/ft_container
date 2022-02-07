@@ -45,7 +45,8 @@ namespace ft
         tree(const key_compare &compare = key_compare(), const allocator_type &alloc = allocator_type())
             : _root(nullptr), _alloc(alloc), _comp(compare), _size(0)
         {
-            this->_end = _alloc.allocate(1); // allocate the end node
+            //this->_end = _alloc.allocate(1); // allocate the end node
+            this->_end = NULL;
         }
         ~tree(){};
 
@@ -434,9 +435,10 @@ namespace ft
             {
                 clear(this->_root);
                 this->_root = NULL;
-                this->_alloc.deallocate(this->_end, 1);
-                this->_end = NULL;
             }
+            if (this->_end )
+                this->_alloc.deallocate(this->_end, 1);
+            this->_end = NULL;
             this->_size = 0;
         }
         void clear(node_ptr node)
@@ -447,8 +449,9 @@ namespace ft
                 clear(node->left);
             if (node->right)
                 clear(node->right);
+            this->_alloc.destroy(node);
             this->_alloc.deallocate(node, 1);
-            node = NULL;
+            //node = NULL;
         }
 
         node_ptr lower_bound(value_type val) const

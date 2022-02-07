@@ -80,7 +80,9 @@ namespace ft
         {
             for (size_type i = 0; i < this->_size; i++)
             {
+                std::cout << "i  =  " << i << "\n";
                 this->_alloc.destroy(&_rawData[i]);
+                std::cout << "i  =  " << i << "\n";
             }
             this->_alloc.deallocate(this->_rawData, this->_capacity);
         };
