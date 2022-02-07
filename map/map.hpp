@@ -91,7 +91,7 @@ namespace ft
 
         ~map()
         {
-            // maust clear the tree
+            this->clear();
         }
 
     public:
@@ -278,7 +278,7 @@ namespace ft
         
         allocator_type get_allocator() const
         {
-            return(this->_alloc);
+            return(this->_tree.get_alloc());
         }
     public: //////////////////////////////////////////////////
         void print()
