@@ -295,7 +295,8 @@ namespace ft
             this->_size = newSize;
             for (difference_type i = this->_size - 1; i > positionIndex; i--)
             {
-                this->_rawData[i] = this->_rawData[i - 1];
+                //this->_rawData[i] = this->_rawData[i - 1];
+                this->_alloc.construct(&_rawData[i],this->_rawData[i - 1]);
             }
             this->_rawData[positionIndex] = val;
             return (this->begin() + positionIndex);
