@@ -146,7 +146,7 @@ namespace ft
             if (newRoot->left)              // assign parent of of left to root
                 newRoot->left->parent = root;
 
-            newRoot->parent = root->parent; //
+            newRoot->parent = root->parent; // assign old root parent to new root 
 
             if (root->parent == NULL) // make new_root as tree root
                 this->_root = newRoot;
@@ -256,13 +256,13 @@ namespace ft
             /// make root parent NULL to don't balance end node
             this->_root->parent = NULL;
 
-            if (!node)
+            if (!node) /// hadchi zayd 
                 return;
             if (node != nullptr)
             {
-                if (rightLeft == -1)
+                if (rightLeft == LEFT)
                     node->bf -= 1;
-                else
+                else if (rightLeft == RIGHT)
                     node->bf += 1;
             }
             if (node->bf < -1 || node->bf > 1)
@@ -298,7 +298,7 @@ namespace ft
         void deleteNodeFirstCase(node_ptr node)
         {
             node_ptr parent = node->parent;
-            if (!parent)
+            if (!parent)  // neeed to get  fixed leeks<----
                 return;
             if (parent->left == node)
             {
