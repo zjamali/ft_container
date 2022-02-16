@@ -87,25 +87,44 @@ namespace ft
 
     public:
         /*********  CAPACITY MEMBERS FUNCTIONS  ********/
+        /*
+        **  Returns the number of elements in the vector.
+        */
         size_type size() const
         {
             return (this->_size);
         }
 
+        /*
+        **  Returns the size of the storage space currently allocated for the vector (expressed in terms of elements).
+        */
         size_type capacity() const
         {
             return (this->_capacity);
         }
 
+        /*
+        **  Returns whether the vector is empty (i.e. whether its size is 0).
+        */
         bool empty() const
         {
             return (this->_size == 0);
         }
+
+        /*
+        **  Returns the maximum number of elements that the vector can hold.
+        */
         size_type max_size() const
         {
             return (std::min(std::numeric_limits<difference_type>::max(), (difference_type)this->_alloc.max_size()));
         }
 
+        /*
+        **  Resizes the container so that it contains n elements.
+        **  if n is smaller the current size the content reduced to n, and remove those beyound the n.
+        **  If n is greater than the current container size, the content is expanded by inserting 
+        **  at the end as many elements as needed to reach a size of n. 
+        */
         void resize(size_type n, value_type val = value_type())
         {
             size_type _sz = this->_size;
@@ -125,6 +144,9 @@ namespace ft
         }
 
     private:
+        /*
+        ** reserve 
+        */
         void my_reserve(size_type n)
         {
             if (this->_capacity < n)

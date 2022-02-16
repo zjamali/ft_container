@@ -95,7 +95,7 @@ namespace ft
                 else
                     root = root->right;
             }
-            /// if the key already exist then replace the value
+            /// if the key already exist then replace the just the mapped value
             if (parent->data.first == newNode->data.first)
             {
                 parent->data.second = newNode->data.second;
@@ -485,8 +485,6 @@ namespace ft
             }
             return (node);
         }
-
-        
 
         void print()
         {

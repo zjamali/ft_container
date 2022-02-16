@@ -7,7 +7,7 @@
 #include <functional>
 #include <cstddef>
 #include "tree.hpp"
-#include "./iterator.hpp"
+#include "./map_iterator.hpp"
 #include "utills.hpp"
 
 namespace ft
@@ -47,17 +47,19 @@ namespace ft
             }
         };
 
-    public:
+    private:
         typedef typename ft::tree<value_type, value_compare, allocator_type> tree;
         typedef typename ft::Node<value_type> node;
         typedef node *node_ptr;
+    
+    public:
         typedef tree_iterator<pointer, node_ptr> iterator;
         typedef tree_iterator<const_pointer, node_ptr> const_iterator;
         typedef typename ft::reverse_iterator<iterator> reverse_iterator;
         typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
-        /// typedef typename iterator_traits<iterator>::difference_type difference_type;
 
     private:
+        //ft::tree<value_type, value_compare, allocator_type> _tree;
         tree _tree;
         allocator_type _alloc;
         key_compare _compare;
@@ -82,6 +84,7 @@ namespace ft
 
         map &operator=(const map &obj)
         {
+            // this need to fix
             if (this != &obj)
             {
                 insert(obj.begin(), obj.end());
@@ -138,9 +141,7 @@ namespace ft
     public: // Capacity:
         bool empty() const
         {
-            if (this->_tree.size() == 0)
-                return (true);
-            return (false);
+            return (this->_tree.size() == 0);
         }
         size_type size() const
         {
