@@ -2,8 +2,8 @@
 #define VECTOR_HPP
 #include <memory>
 #include <iostream>
-#include "iterator.hpp"
-#include "utils.hpp"
+#include "vec_iterator.hpp"
+#include "../utils.hpp"
 #include <algorithm>
 
 namespace ft
@@ -52,7 +52,7 @@ namespace ft
         }
 
         // COPY constructor
-        vector(const vector &x)
+        vector(const vector &x): _alloc(allocator_type()), _capacity(0), _size(0), _rawData(NULL)
         {
             *this = x;
         }
@@ -61,9 +61,11 @@ namespace ft
         {
             if (this != &x)
             {
+                int d ;
                 for (size_type i = 0; i < this->_size; i++)
                 {
                     _alloc.destroy(&_rawData[i]);
+                    d = i;
                 }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_capacity = x._capacity;
@@ -145,7 +147,9 @@ namespace ft
 
     private:
         /*
-        ** reserve 
+        **  my_reserve : this function reserve the double capacity if double of current capacity less or equal to n
+        **  else reseve n memory
+        **  
         */
         void my_reserve(size_type n)
         {
@@ -156,6 +160,7 @@ namespace ft
                     this->_capacity *= 2;
                 else
                     this->_capacity = n;
+                // allocate new capacity
                 pointer ptr = this->_alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_size; i++)
                 {
@@ -171,6 +176,11 @@ namespace ft
         }
 
     public:
+        /*
+        **  Requests that the vector capacity be at least enough to contain n elements.
+        **  If n is greater than the current vector capacity, the function causes the container 
+        **  to reallocate its storage increasing its capacity to n (or greater).
+        */
         void reserve(size_type n)
         {
             if (this->_capacity < n)
@@ -238,6 +248,9 @@ namespace ft
         }
 
     private:
+        /*
+        **  reverve n size without doubling capacity
+        */
         void assign_alloctor(size_type n)
         {
             if (this->_capacity < n)
@@ -260,6 +273,10 @@ namespace ft
 
     public:
         /*********  MODIFIERS MEMBERS FUNCTIONS  ********/
+        /*
+        **  Assigns new contents to the vector, 
+        **  replacing its current contents, and modifying its size accordingly.
+        */
         void assign(size_type n, const value_type &val)
         {
             if (n <= 0)
@@ -291,19 +308,28 @@ namespace ft
             }
         }
 
+        /*
+        **  Adds a new element at the end of the vector, after its current last element.
+        */
         void push_back(const value_type &val)
         {
             this->my_reserve(this->_size + 1);
             _alloc.construct(&this->_rawData[_size], val);
             this->_size++;
         }
-
+        /*
+        **  Removes the last element in the vector.
+        */
         void pop_back()
         {
             this->_alloc.destroy(&_rawData[_size - 1]);
             this->_size--;
         }
 
+        /*
+        **  The vector is extended by inserting new elements before the element at the specified position, 
+        **  effectively increasing the container size by the number of elements inserted.
+        */
         iterator insert(iterator position, const value_type &val)
         {
             difference_type positionIndex = position - this->begin();
@@ -362,12 +388,29 @@ namespace ft
 
         void swap(vector &x)
         {
-            std::swap(this->_rawData, x._rawData);
-            std::swap(this->_size, x._size);
-            std::swap(this->_capacity, x._capacity);
-            std::swap(this->_alloc, x._alloc);
+            pointer temp_data = x._rawData;
+            size_type temp_size = x._size;
+            size_type temp_capacity = x._capacity;
+            allocator_type temp_allocator = x._alloc;
+            
+            x._rawData = this->_rawData;
+            x._size = this->_size;
+            x._capacity = this->_capacity;
+            x._alloc = this->_alloc;
+
+            this->_rawData = temp_data;
+            this->_size = temp_size;
+            this->_capacity = temp_capacity;
+            this->_alloc = temp_allocator;
+            //std::swap(this->_rawData, x._rawData);
+            //std::swap(this->_size, x._size);
+            //std::swap(this->_capacity, x._capacity);
+            //std::swap(this->_alloc, x._alloc);
         }
 
+        /*
+        **  Removes from the vector either a single element (position) or a range of elements ([first,last)). 
+        */
         iterator erase(iterator position)
         {
             difference_type index = position - this->begin();
@@ -391,7 +434,11 @@ namespace ft
             }
             return (this->begin());
         }
+        
 
+        /*
+        **  Returns a copy of the allocator object associated with the vector.
+        */
         allocator_type get_allocator() const
         {
             return (this->_alloc);
