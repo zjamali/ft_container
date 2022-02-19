@@ -148,7 +148,7 @@ namespace ft
     private:
         /*
         **  my_reserve : this function reserve the double capacity if double of current capacity less or equal to n
-        **  else reseve n memory
+        **  else reseve n memory 
         **  
         */
         void my_reserve(size_type n)

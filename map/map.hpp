@@ -51,7 +51,7 @@ namespace ft
         typedef typename ft::tree<value_type, value_compare, allocator_type> tree;
         typedef typename ft::Node<value_type> node;
         typedef node *node_ptr;
-    
+
     public:
         typedef tree_iterator<pointer, node_ptr> iterator;
         typedef tree_iterator<const_pointer, node_ptr> const_iterator;
@@ -59,7 +59,7 @@ namespace ft
         typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
     private:
-        //ft::tree<value_type, value_compare, allocator_type> _tree;
+        // ft::tree<value_type, value_compare, allocator_type> _tree;
         tree _tree;
         allocator_type _alloc;
         key_compare _compare;
@@ -149,8 +149,9 @@ namespace ft
         }
         size_type max_size() const
         {
-            return (std::min(std::numeric_limits<difference_type>::max(),
-                             (difference_type)this->_alloc.max_size()));
+            //return (std::min(std::numeric_limits<difference_type>::max(),
+            //                 (difference_type)this->_alloc.max_size()));
+            return (this->_tree.max_size());
         }
 
     public: /// Modifiers
@@ -258,7 +259,7 @@ namespace ft
         {
             return (const_iterator(this->_tree.lower_bound(ft::make_pair(k, mapped_type()))));
         }
-    
+
         iterator upper_bound(const key_type &k)
         {
             return (iterator(this->_tree.upper_bound(ft::make_pair(k, mapped_type()))));
@@ -276,17 +277,19 @@ namespace ft
         {
             return (ft::make_pair(this->lower_bound(k), this->upper_bound(k)));
         }
-        
+
         allocator_type get_allocator() const
         {
-            return(this->_tree.get_alloc());
+            return (this->_tree.get_alloc());
         }
-    public: //////////////////////////////////////////////////
-        void print()
-        {
-            if (this->_tree.base() != NULL)
-                _tree.print();
-        }
+        /*
+        public: //////////////////////////////////////////////////
+            void print()
+            {
+                if (this->_tree.base() != NULL)
+                    _tree.print();
+            }
+        */
     };
 
 }

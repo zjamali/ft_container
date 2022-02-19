@@ -6,11 +6,10 @@
 #include <utility>
 // #include "print.hpp"
 
-#define RIGHT 1
-#define LEFT -1
-
 namespace ft
 {
+    #define RIGHT 1
+    #define LEFT -1
     template <class T>
     struct Node
     {
@@ -22,7 +21,7 @@ namespace ft
         Node(const T &data) : data(data), left(nullptr), right(nullptr), parent(nullptr), bf(0){};
     };
 
-    template <class T, class Compare = std::less<T>, class Alloc = std::allocator<Node<T> > >
+    template <class T, class Compare, class Alloc>
     class tree
     {
     public:
@@ -45,14 +44,12 @@ namespace ft
         tree(const key_compare &compare = key_compare(), const allocator_type &alloc = allocator_type())
             : _root(nullptr), _alloc(alloc), _comp(compare), _size(0)
         {
-            //this->_end = _alloc.allocate(1); // allocate the end node
             this->_end = NULL;
         }
         ~tree(){};
 
         node_ptr createNode(value_type const &data)
         {
-            // node_ptr newNode = node_allocator(_alloc).allocate(1);
             node_ptr newNode = _alloc.allocate(1);
             this->_alloc.construct(newNode, data);
             return (newNode);
@@ -146,7 +143,7 @@ namespace ft
             if (newRoot->left)              // assign parent of of left to root
                 newRoot->left->parent = root;
 
-            newRoot->parent = root->parent; // assign old root parent to new root 
+            newRoot->parent = root->parent; // assign old root parent to new root
 
             if (root->parent == NULL) // make new_root as tree root
                 this->_root = newRoot;
@@ -256,7 +253,7 @@ namespace ft
             /// make root parent NULL to don't balance end node
             this->_root->parent = NULL;
 
-            if (!node) /// hadchi zayd 
+            if (!node) /// hadchi zayd
                 return;
             if (node != nullptr)
             {
@@ -298,7 +295,7 @@ namespace ft
         void deleteNodeFirstCase(node_ptr node)
         {
             node_ptr parent = node->parent;
-            if (!parent)  // neeed to get  fixed leeks<----
+            if (!parent) // neeed to get  fixed leeks<----
                 return;
             if (parent->left == node)
             {
@@ -436,7 +433,7 @@ namespace ft
                 clear(this->_root);
                 this->_root = NULL;
             }
-            if (this->_end )
+            if (this->_end)
                 this->_alloc.deallocate(this->_end, 1);
             this->_end = NULL;
             this->_size = 0;
@@ -451,7 +448,7 @@ namespace ft
                 clear(node->right);
             this->_alloc.destroy(node);
             this->_alloc.deallocate(node, 1);
-            //node = NULL;
+            // node = NULL;
         }
 
         node_ptr lower_bound(value_type val) const
@@ -485,6 +482,7 @@ namespace ft
             }
             return (node);
         }
+
 
         void print()
         {
