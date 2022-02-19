@@ -64,8 +64,6 @@ namespace ft
 
         vec_iterator operator-(difference_type n) const
         {
-           //*this->ptr = *this->ptr - n;
-            //return (*this);
             return (vec_iterator(this->ptr - n));
         }
 
