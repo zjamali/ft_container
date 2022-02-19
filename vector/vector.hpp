@@ -149,7 +149,7 @@ namespace ft
         /*
         **  my_reserve : this function reserve the double capacity if double of current capacity less or equal to n
         **  else reseve n memory 
-        **  
+        **  and copy data from old array to new array allocated
         */
         void my_reserve(size_type n)
         {
@@ -367,8 +367,10 @@ namespace ft
                     typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type * = nullptr)
         {
             difference_type firstPosIndex = position - this->begin();
-            difference_type lastPosIndex = firstPosIndex + last - first - 1;
+            //difference_type lastPosIndex = firstPosIndex + last - first - 1;
+            //difference_type ranglen = last - first;
             difference_type ranglen = last - first;
+            difference_type lastPosIndex = firstPosIndex + ranglen - 1;
             this->my_reserve(this->_size + ranglen);
             for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
@@ -402,10 +404,6 @@ namespace ft
             this->_size = temp_size;
             this->_capacity = temp_capacity;
             this->_alloc = temp_allocator;
-            //std::swap(this->_rawData, x._rawData);
-            //std::swap(this->_size, x._size);
-            //std::swap(this->_capacity, x._capacity);
-            //std::swap(this->_alloc, x._alloc);
         }
 
         /*
@@ -430,11 +428,12 @@ namespace ft
 
             for (difference_type i = firstPosIndex; i <= lastPosIndex; i++)
             {
-                this->erase(this->begin() + firstPosIndex);
+                // this->erase(this->begin() + firstPosIndex);
+                this->erase(this->begin() + i);
             }
             return (this->begin());
         }
-        
+
 
         /*
         **  Returns a copy of the allocator object associated with the vector.

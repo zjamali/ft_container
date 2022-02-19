@@ -50,7 +50,7 @@ namespace ft
     private:
         typedef typename ft::tree<value_type, value_compare, allocator_type> tree;
         typedef typename ft::Node<value_type> node;
-        typedef node *node_ptr;
+        typedef node* node_ptr;
 
     public:
         typedef tree_iterator<pointer, node_ptr> iterator;
@@ -59,7 +59,6 @@ namespace ft
         typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
     private:
-        // ft::tree<value_type, value_compare, allocator_type> _tree;
         tree _tree;
         allocator_type _alloc;
         key_compare _compare;
@@ -84,7 +83,6 @@ namespace ft
 
         map &operator=(const map &obj)
         {
-            // this need to fix
             if (this != &obj)
             {
                 insert(obj.begin(), obj.end());
@@ -149,8 +147,6 @@ namespace ft
         }
         size_type max_size() const
         {
-            //return (std::min(std::numeric_limits<difference_type>::max(),
-            //                 (difference_type)this->_alloc.max_size()));
             return (this->_tree.max_size());
         }
 
@@ -227,7 +223,7 @@ namespace ft
         }
         value_compare value_comp() const
         {
-            return value_compare(_compare);
+            return (value_compare(_compare));
         }
 
     public: /// Operations:
@@ -282,14 +278,14 @@ namespace ft
         {
             return (this->_tree.get_alloc());
         }
-        /*
+        
         public: //////////////////////////////////////////////////
             void print()
             {
                 if (this->_tree.base() != NULL)
                     _tree.print();
             }
-        */
+        
     };
 
 }

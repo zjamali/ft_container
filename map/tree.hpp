@@ -4,12 +4,12 @@
 #include <iostream>
 #include <algorithm>
 #include <utility>
-// #include "print.hpp"
+#include "print.hpp"
 
 namespace ft
 {
-    #define RIGHT 1
-    #define LEFT -1
+#define RIGHT 1
+#define LEFT -1
     template <class T>
     struct Node
     {
@@ -253,8 +253,8 @@ namespace ft
             /// make root parent NULL to don't balance end node
             this->_root->parent = NULL;
 
-            if (!node) /// hadchi zayd
-                return;
+            //if (!node) /// hadchi zayd
+            //    return;
             if (node != nullptr)
             {
                 if (rightLeft == LEFT)
@@ -295,7 +295,7 @@ namespace ft
         void deleteNodeFirstCase(node_ptr node)
         {
             node_ptr parent = node->parent;
-            if (!parent) // neeed to get  fixed leeks<----
+            if (!parent) 
                 return;
             if (parent->left == node)
             {
@@ -483,24 +483,25 @@ namespace ft
             return (node);
         }
 
+       
+                void print()
+                {
+                    std::cout << "\n";
+                    print(this->_root);
+                    std::cout << "\n";
+                    print2D(this->_root);
+                    std::cout << "\n";
+                }
+                void print(node_ptr node)
+                {
+                    if (!node)
+                        return;
 
-        void print()
-        {
-            std::cout << "\n";
-            print(this->_root);
-            std::cout << "\n";
-            print2D(this->_root);
-            std::cout << "\n";
-        }
-        void print(node_ptr node)
-        {
-            if (!node)
-                return;
-
-            print(node->left);
-            std::cout << " -> " << node->data.second << " {" << node->bf << "}   ";
-            print(node->right);
-        }
+                    print(node->left);
+                    std::cout << " -> " << node->data.second << " {" << node->bf << "}   ";
+                    print(node->right);
+                }
+       
     };
 }
 
