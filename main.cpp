@@ -851,14 +851,6 @@ int main(void)
 			  << std::endl;
 	// end of map tests
 
-
-	{
-		ft::map<int,int> map1337;
-		ft::map<int,int>::const_iterator i9 = map1337.begin();
-		ft::map<int,int>::iterator i8 = map1337.begin();
-		if (i9 == i8)
-			std::cout << "fshsa\n";
-	}
 	std::cout << "end of program" << std::endl;
 	return 0;
 }

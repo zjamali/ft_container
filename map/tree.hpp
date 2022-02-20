@@ -291,6 +291,7 @@ namespace ft
             else /// third case
                 deleteNodethirdCase(node);
         }
+    private:
         void deleteNodeFirstCase(node_ptr node)
         {
             node_ptr parent = node->parent;
@@ -362,7 +363,7 @@ namespace ft
             node->right = right;
             node->parent = parent;
         }
-
+    private:
         node_ptr treeSuccessor(node_ptr root) const
         {
             if (root->right)
@@ -387,7 +388,7 @@ namespace ft
             }
             return (parent);
         }
-
+    public:
         node_ptr search(value_type value) const
         {
             return (this->find(this->_root, value));
