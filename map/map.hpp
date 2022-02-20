@@ -7,8 +7,8 @@
 #include <functional>
 #include <cstddef>
 #include "tree.hpp"
+#include "map_utils.hpp"
 #include "./map_iterator.hpp"
-#include "../utils.hpp"
 
 namespace ft
 {
@@ -54,7 +54,7 @@ namespace ft
 
     public:
         typedef tree_iterator<pointer, node_ptr> iterator;
-        typedef tree_iterator<const_pointer, node_ptr> const_iterator;
+        typedef tree_const_iterator<const_pointer, node_ptr> const_iterator;
         typedef typename ft::reverse_iterator<iterator> reverse_iterator;
         typedef typename ft::reverse_iterator<const_iterator> const_reverse_iterator;
 
@@ -278,14 +278,14 @@ namespace ft
         {
             return (this->_tree.get_alloc());
         }
-        
+        /*
         public: //////////////////////////////////////////////////
             void print()
             {
                 if (this->_tree.base() != NULL)
                     _tree.print();
             }
-        
+        */
     };
 
 }

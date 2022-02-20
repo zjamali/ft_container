@@ -7,7 +7,7 @@
 namespace ft
 {
     template <class T>
-    class vec_iterator : public iterator<std::random_access_iterator_tag, T>
+    class vec_iterator /* : public iterator<std::random_access_iterator_tag, T>*/
     {
     public:
         typedef typename iterator_traits<T>::value_type value_type;
@@ -96,39 +96,39 @@ namespace ft
             return (this->base()[n]);
         }
     };
-    template <class Iterator>
+    template <class Iterator, class iter>
     bool operator==(const vec_iterator<Iterator> &lhs,
-                    const vec_iterator<Iterator> &rhs)
+                    const vec_iterator<iter> &rhs)
     {
         return (lhs.base() == rhs.base());
     }
-    template <class Iterator>
+    template <class Iterator, class iter>
     bool operator!=(const vec_iterator<Iterator> &lhs,
-                    const vec_iterator<Iterator> &rhs)
+                    const vec_iterator<iter> &rhs)
     {
         return (lhs.base() != rhs.base());
     }
-    template <class Iterator>
+    template <class Iterator, class iter>
     bool operator<(const vec_iterator<Iterator> &lhs,
-                   const vec_iterator<Iterator> &rhs)
+                   const vec_iterator<iter> &rhs)
     {
         return (lhs.base() < rhs.base());
     }
-    template <class Iterator>
+    template <class Iterator, class iter>
     bool operator<=(const vec_iterator<Iterator> &lhs,
-                    const vec_iterator<Iterator> &rhs)
+                    const vec_iterator<iter> &rhs)
     {
         return (lhs.base() <= rhs.base());
     }
-    template <class Iterator>
+    template <class Iterator, class iter>
     bool operator>(const vec_iterator<Iterator> &lhs,
-                   const vec_iterator<Iterator> &rhs)
+                   const vec_iterator<iter> &rhs)
     {
         return (lhs.base() > rhs.base());
     }
-    template <class Iterator>
+    template <class Iterator, class iter>
     bool operator>=(const vec_iterator<Iterator> &lhs,
-                    const vec_iterator<Iterator> &rhs)
+                    const vec_iterator<iter> &rhs)
     {
         return (lhs.base() >= rhs.base());
     }

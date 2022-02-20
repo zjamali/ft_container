@@ -3,7 +3,7 @@
 #include <memory>
 #include <iostream>
 #include "vec_iterator.hpp"
-#include "../utils.hpp"
+#include "utils.hpp"
 #include <algorithm>
 
 namespace ft
