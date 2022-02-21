@@ -850,7 +850,6 @@ int main(void)
 	std::cout << "\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< end of map tests >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n"
 			  << std::endl;
 	// end of map tests
-
 	std::cout << "end of program" << std::endl;
 	return 0;
 }

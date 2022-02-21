@@ -61,20 +61,14 @@ namespace ft
         {
             if (this != &x)
             {
-                int d ;
                 for (size_type i = 0; i < this->_size; i++)
-                {
                     _alloc.destroy(&_rawData[i]);
-                    d = i;
-                }
                 this->_alloc.deallocate(this->_rawData, this->_capacity);
                 this->_capacity = x._capacity;
                 this->_size = x._size;
                 this->_rawData = _alloc.allocate(this->_capacity);
                 for (size_type i = 0; i < this->_capacity; i++)
-                {
                     _alloc.construct(&_rawData[i], x._rawData[i]);
-                }
             }
             return (*this);
         }
